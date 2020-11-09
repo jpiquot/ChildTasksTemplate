@@ -1,0 +1,35 @@
+# Azure Pipelines configuration that builds and packages the DevOps extension.
+trigger:
+  branches:
+    include:
+    - master
+  tags:
+    include:
+    - v*
+jobs:
+- job: Linux
+  pool:
+    vmImage: 'ubuntu-16.04'
+  steps:
+    - checkout: self
+      clean: true
+
+    - task: NodeTool@0
+      inputs:
+        versionSpec: '12.19.0'
+      displayName: 'Install Node.js'
+
+    - task: Npm@1
+      inputs:
+        command: install
+      displayName: 'Install dependencies'
+
+    - script: 'npm run build' 
+      displayName: 'Build package'
+
+    - script: 'npm run package' 
+      displayName: 'Create package'
+
+    - publish: './bin'
+      artifact: Extension
+      displayName: 'Publish the pipeline artifact'

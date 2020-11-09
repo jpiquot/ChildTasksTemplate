@@ -1,0 +1,91 @@
+{
+	"manifestVersion": 1,
+	"id": "ChildTasksTemplate",
+	"version": "1.0.0",
+	"public": true,
+	"name": "Child Tasks Template",
+	"publisher": "Fiveforty",
+	"description": "This extension enables creating user story or bug child tasks from a template.",
+	"targets": [
+		{
+			"id": "Microsoft.VisualStudio.Services"
+		}
+	],
+	"demands": [ "api-version/5.1" ],
+	"icons": {
+		"default": "static/fiveforty.png"
+	},
+	"content": {
+		"details": {
+			"path": "content_details.md"
+		}
+	},
+	"categories": [ "Azure Boards" ],
+	"scopes": [
+		"vso.work"
+	],
+	"contributions": [
+		{
+			"id": "child-tasks-template",
+			"type": "ms.vss-web.action",
+			"description": "Add child tasks from template.",
+			"targets": [ "ms.vss-work-web.work-item-query-menu" ],
+			"properties": {
+				"text": "Add tasks",
+				"title": "Add tasks",
+				"groupId": "actions",
+				"uri": "static/app.html"
+			}
+		},
+		{
+			"id": "child-tasks-template-settings",
+			"type": "ms.vss-web.hub",
+			"targets": [ "ms.vss-web.project-admin-hub-group" ],
+			"includes": [
+				"ms.vss-tfs-web.tfs-page-data-service",
+				"ms.vss-features.host-navigation-service",
+				"ms.vss-features.extension-data-service",
+				"ms.vss-features.host-dialog-service"
+			],
+			"properties": {
+				"name": "Child Tasks Template",
+				"uri": "static/settings.html",
+				"icon": "static/settings-icon.png",
+				"supportsMobile": true
+			}
+		}
+	],
+	"files": [
+		{
+			"path": "dist",
+			"addressable": true
+		},
+		{
+			"path": "static",
+			"addressable": true
+		}
+	],
+	"links": {
+		"support": {
+			"uri": "mailto:jpiquot@fiveforty.fr"
+		},
+		"home": {
+			"uri": "https://github.com/jpiquot/ChildTasksTemplate"
+		},
+		"repository": {
+			"uri": "https://github.com/jpiquot/ChildTasksTemplate.git"
+		},
+		"issues": {
+			"uri": "https://github.com/jpiquot/ChildTasksTemplate/issues"
+		}
+	},
+	"tags": [
+		"Iteration",
+		"Area",
+		"Security"
+	],
+	"repository": {
+		"type": "git",
+		"uri": "https://github.com/jpiquot/ChildTasksTemplate.git"
+	}
+}

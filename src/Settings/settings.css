@@ -1,0 +1,32 @@
+.child-tasks-template {
+	padding: 32px;
+	margin: 0px;
+	background-color: rgba(var(--palette-neutral-2,248, 248, 248),1);
+}
+
+
+.child-tasks-template-title {
+	margin-bottom: 32px;
+	font-size: 1.3125rem;
+	font-weight: 600;
+	letter-spacing: -0.02em;
+	font-family: "Segoe UI", "-apple-system", BlinkMacSystemFont, Roboto, "Helvetica Neue", Helvetica, Ubuntu, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.child-tasks-template-content {
+	padding: 32px;
+	box-shadow: 0 3.2px 7.2px 0 var(--callout-shadow-color, rgba(0, 0, 0, 0.132)), 0 0.6px 1.8px 0 var(--callout-shadow-secondary-color, rgba(0, 0, 0, 0.108));
+}
+
+.tasks-template-field {
+	margin-bottom: 20px;
+}
+
+.tasks-template-field-label {
+	font-weight: 500;
+}
+
+.tasks-template-field-description {
+	font-weight: 500;
+	color: gray;
+}
