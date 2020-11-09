@@ -19,6 +19,9 @@
 	"content": {
 		"details": {
 			"path": "content_details.md"
+		},
+		"license": {
+			"path": "LICENSE"
 		}
 	},
 	"categories": [ "Azure Boards" ],
@@ -29,12 +32,12 @@
 		{
 			"id": "child-tasks-template",
 			"type": "ms.vss-web.action",
-			"description": "Add child tasks from template.",
-			"targets": [ "ms.vss-work-web.work-item-query-menu" ],
+			"description": "Add child tasks from the template defined in the project settings.",
+			"targets": [ "ms.vss-work-web.work-item-context-menu" ],
 			"properties": {
 				"text": "Add tasks",
-				"title": "Add tasks",
-				"groupId": "actions",
+				"toolbarText": "Add tasks",
+				"title": "Creates child tasks from the defined template.",
 				"uri": "static/app.html"
 			}
 		},
@@ -73,20 +76,34 @@
 		"home": {
 			"uri": "https://github.com/jpiquot/ChildTasksTemplate"
 		},
+		"getstarted": {
+			"uri": "https://github.com/jpiquot/ChildTasksTemplate"
+		},
+		"learn": {
+			"uri": "https://github.com/jpiquot/ChildTasksTemplate"
+		},
 		"repository": {
-			"uri": "https://github.com/jpiquot/ChildTasksTemplate.git"
+			"uri": "https://github.com/jpiquot/ChildTasksTemplate"
 		},
 		"issues": {
 			"uri": "https://github.com/jpiquot/ChildTasksTemplate/issues"
 		}
 	},
 	"tags": [
-		"Iteration",
-		"Area",
-		"Security"
+		"Task",
+		"Template",
+		"Create"
 	],
 	"repository": {
 		"type": "git",
 		"uri": "https://github.com/jpiquot/ChildTasksTemplate.git"
-	}
+	},
+	"screenshots": [
+		{
+			"path": "static/setup_screen.png"
+		},
+		{
+			"path": "static/add_child_tasks_screen.png"
+		}
+	]
 }
