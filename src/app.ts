@@ -1,6 +1,7 @@
 import {
     CommonServiceIds,
     IExtensionDataService,
+    IProjectInfo,
     IProjectPageService
 } from "azure-devops-extension-api";
 
@@ -10,43 +11,44 @@ import { ChildTasksService } from "./ChildTasksService";
 import { SettingsData } from "./Settings/SettingsData";
 
 class program {
+    private static project?: IProjectInfo;
+    private static async getCurrentProject():Promise<IProjectInfo>
+    {
+        if (!program.project)
+        {
+            program.project = await (await SDK.getService<IProjectPageService>(
+                CommonServiceIds.ProjectPageService
+            )).getProject();
+        }
+        if (!program.project)
+        {
+            throw Error("Current project is undefined.")
+        }
+        return program.project;
+    }
     public static async run() {
-        const project = await (await SDK.getService<IProjectPageService>(
-            CommonServiceIds.ProjectPageService
-        )).getProject();
-        SDK.register('child-tasks-template-action', () =>
-            {
-                return {
-                    execute: async (context: any) => {
-                        if (project === undefined)
-                        {
-                            throw Error("Current project is undefined.")
-                        }
-                        const childTasksService = new ChildTasksService(project.id);
-                        await childTasksService.execute(context);
-                   }
-                }
-            })
         await SDK.init({
             applyTheme: true,
             loaded: false,
         });
         await SDK.ready();
-
-        if (project === undefined) {
-            throw Error("No project defined.");
-        }
         const extension: SDK.IExtensionContext = SDK.getExtensionContext();
         const dataService = await SDK.getService<IExtensionDataService>(
             CommonServiceIds.ExtensionDataService
         );
-        const settings = new SettingsData(await dataService.getExtensionDataManager(extension.id, await SDK.getAccessToken()), project.id);
+        const settings = new SettingsData(await dataService.getExtensionDataManager(extension.id, await SDK.getAccessToken()), (await program.getCurrentProject()).id);
         const tasksTemplate = await settings.getChildTasksTemplate();
-        if (!tasksTemplate) {
-            // If the child tasks template is not defined, do not add the child tasks insert menu item.
-            return;
+        if (tasksTemplate) {
+            SDK.register('child-tasks-template-action', () =>
+            {
+                return {
+                    execute: async (context: any):Promise<void> => {
+                        await (new ChildTasksService()).execute(context);
+                   }
+                }
+            });
         }
-        SDK.notifyLoadSucceeded();
+        await SDK.notifyLoadSucceeded();
     }
 }
 

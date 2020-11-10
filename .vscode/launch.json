@@ -12,6 +12,16 @@
             "url": "https://localhost:3000",
             "webRoot": "${workspaceFolder}",
             "pathMappings": [
+                { "url": "webpack:///~/", "path": "${webRoot}/node_modules/" },
+                { "url": "webpack:///./~/", "path": "${webRoot}/node_modules/" },
+                { "url": "webpack:///./", "path": "${webRoot}/" },
+                { "url": "webpack:///src/", "path": "${webRoot}/src/" },
+                { "url": "webpack:///node_modules/", "path": "${webRoot}/node_modules/" },
+                { "url": "webpack:///webpack", "path": null },
+                { "url": "webpack:///(webpack)", "path": null },
+                { "url": "webpack://[name]_[chunkhash]/node_modules/", "path": "${webRoot}/node_modules/" },
+                { "url": "webpack://[name]_[chunkhash]/", "path": null },
+                { "url": "webpack:///", "path": "" },
                 {
                     "url": "webpack:///home/vsts/work/1/s/src/app.ts",
                     "path": "${workspaceFolder}/src/app.ts"

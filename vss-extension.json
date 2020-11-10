@@ -25,7 +25,7 @@
 	},
 	"categories": [ "Azure Boards" ],
 	"scopes": [
-		"vso.work"
+		"vso.work_write"
 	],
 	"contributions": [
 		{

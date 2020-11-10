@@ -11,7 +11,7 @@ module.exports = {
         new CopyWebpackPlugin({
             patterns: [
                 { from: "**", context: "static" },
-                { from: "azure-devops-extension-sdk/**", context: "node_modules" }
+                { from: "**", context: "node_modules/azure-devops-extension-sdk/" }
             ]
         })],
     entry: {

@@ -7,12 +7,6 @@ import { JsonPatchDocument, JsonPatchOperation, Operation } from "azure-devops-e
 
 class ChildTasksService {
     private workClient?: WorkItemTrackingRestClient;
-    private projectId: string;
-
-    constructor(projectId:string)
-    {
-        this.projectId = projectId;
-    }
 
     private async getWorkClient():Promise<WorkItemTrackingRestClient>
     {
@@ -34,11 +28,19 @@ class ChildTasksService {
     public async execute(context:any):Promise<void> {
         const client = await this.getWorkClient();
         let patch = new Array<JsonPatchOperation>();
-
-        patch.push(this.newFieldOperation("System.Title", "Test child task of "+context.ID));
-        patch.push(this.newFieldOperation("System.Activity", "Development"));
-        await client.createWorkItem(patch as JsonPatchDocument, this.projectId, "Task");
-        
+        /*
+        workItemAvailable: true
+        workItemDirty: false
+        workItemId: 7340
+        workItemTypeName: "User Story"
+        */
+        if (context.workItemAvailable)
+        {
+            patch.push(this.newFieldOperation("System.Title", "Test child task of WI "+context.workItemId+" in project "+context.currentProjectName));
+            patch.push(this.newFieldOperation("Microsoft.VSTS.Common.Activity", "Development"));
+            const workItem = await client.createWorkItem(patch as JsonPatchDocument, context.currentProjectGuid, "Task");
+            console.info("Created task "+workItem.id);
+        }        
     }
 }
 
