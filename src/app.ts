@@ -1,9 +1,4 @@
 import {
-    IWorkItemFormService,
-    WorkItemTrackingServiceIds,
-} from "azure-devops-extension-api/WorkItemTracking";
-
-import {
     CommonServiceIds,
     IExtensionDataService,
     IProjectPageService
@@ -16,17 +11,27 @@ import { SettingsData } from "./Settings/SettingsData";
 
 class program {
     public static async run() {
+        const project = await (await SDK.getService<IProjectPageService>(
+            CommonServiceIds.ProjectPageService
+        )).getProject();
+        SDK.register('child-tasks-template-action', () =>
+            {
+                return {
+                    execute: async (context: any) => {
+                        if (project === undefined)
+                        {
+                            throw Error("Current project is undefined.")
+                        }
+                        const childTasksService = new ChildTasksService(project.id);
+                        await childTasksService.execute(context);
+                   }
+                }
+            })
         await SDK.init({
             applyTheme: true,
             loaded: false,
         });
         await SDK.ready();
-        const workItemFormService = await SDK.getService<IWorkItemFormService>(
-            WorkItemTrackingServiceIds.WorkItemFormService
-        );
-        const project = await (await SDK.getService<IProjectPageService>(
-            CommonServiceIds.ProjectPageService
-        )).getProject();
 
         if (project === undefined) {
             throw Error("No project defined.");
@@ -41,9 +46,6 @@ class program {
             // If the child tasks template is not defined, do not add the child tasks insert menu item.
             return;
         }
-        const childTasksService = new ChildTasksService(
-            workItemFormService);
-        childTasksService.dummy();
         SDK.notifyLoadSucceeded();
     }
 }

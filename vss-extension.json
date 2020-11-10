@@ -29,10 +29,15 @@
 	],
 	"contributions": [
 		{
-			"id": "child-tasks-template",
+			"id": "child-tasks-template-action",
 			"type": "ms.vss-web.action",
 			"description": "Add child tasks from the template defined in the project settings.",
-			"targets": [ "ms.vss-work-web.work-item-context-menu" ],
+			"targets": [
+				"ms.vss-work-web.work-item-context-menu",
+				"ms.vss-work-web.query-result-work-item-menu",
+				"ms.vss-work-web.work-item-toolbar-menu",
+				"ms.vss-work-web.backlog-item-menu"
+			],
 			"properties": {
 				"text": "Add tasks",
 				"toolbarText": "Add tasks",
