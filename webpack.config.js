@@ -1,5 +1,5 @@
-const path = require("path");
-const CopyWebpackPlugin = require("copy-webpack-plugin");
+const path = require("path")
+const CopyWebpackPlugin = require("copy-webpack-plugin")
 module.exports = {
     target: "web",
     devtool: "inline-source-map",
@@ -21,22 +21,19 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].js',
-        devtoolModuleFilenameTemplate: "webpack:///[absolute-resource-path]",
+        devtoolModuleFilenameTemplate: "[resource-path]",
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js"],
+        modules: [path.resolve("./src"), path.resolve("./src/settings"), path.resolve("./node_modules")],
         alias: {
-            "azure-devops-ui": path.resolve("node_modules/azure-devops-ui"),
-            "azure-devops-extension-sdk": path.resolve("node_modules/azure-devops-extension-sdk"),
-            "azure-devops-extension-api": path.resolve("node_modules/azure-devops-extension-api")
+            "azure-devops-ui": path.resolve("./node_modules/azure-devops-ui"),
+            "azure-devops-extension-sdk": path.resolve("./node_modules/azure-devops-extension-sdk"),
+            "azure-devops-extension-api": path.resolve("./node_modules/azure-devops-extension-api")
         },
     },
     stats: {
         warnings: false
-    },
-    resolve: {
-        extensions: ["*", ".webpack.js", ".web.js", ".ts", ".tsx", ".js"],
-        modules: [path.resolve("./src"), "node_modules"],
     },
     externals: [
         /^SDK\/.*/, /^VSS\/.*/, /^TFS\/.*/, /^q$/, /^ReleaseManagement\/.*/,
@@ -67,4 +64,4 @@ module.exports = {
             }
         ]
     }
-};
+}
