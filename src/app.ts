@@ -27,7 +27,7 @@ class program {
         return program.project;
     }
     public static async run() {
-        await SDK.init({
+        SDK.init({
             applyTheme: true,
             loaded: false,
         });
