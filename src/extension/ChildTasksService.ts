@@ -31,7 +31,7 @@ class ChildTasksService {
             "op": Operation.Add,
             "path": "/relations/-",
             "value": {
-              "rel": "System.LinkTypes.Dependency-Parent",
+              "rel": "System.LinkTypes.Hierarchy-Reverse",
               "url": parent.url,
             }
           }
@@ -40,23 +40,42 @@ class ChildTasksService {
         const client = await this.getWorkClient()
         const patch = new Array<JsonPatchOperation>()
         const parent = await client.getWorkItem(context.workItemId);
-        /*
-        workItemAvailable: true
-        workItemDirty: false
-        workItemId: 7340
-        workItemTypeName: "User Story"
-        */
+ 
         if (context.workItemAvailable) {
             patch.push(this.newParentRelation(parent))
-            patch.push(this.newFieldOperation("System.Title", this.interpolate("{System.Title} DEV:{System.Id}", parent)))
+            patch.push(this.newFieldOperation("System.Title", ChildTasksService.interpolate("{System.Title} DEV:{id}", parent)))
             patch.push(this.newFieldOperation("Microsoft.VSTS.Common.Activity", "Development"))
             const workItem = await client.createWorkItem(patch as JsonPatchDocument, context.currentProjectGuid, "Task")
             console.info("Created task " + workItem.id)
         }
     }
-    private interpolate(text:string, parent:WorkItem):string
+    private static interpolate(text:string, parent:WorkItem):string
     {
-        return pupa(text,parent.fields);
+        let obj = {}
+        const keys = Object.keys(parent.fields);
+        for (const key of keys) {
+            ChildTasksService.setFieldValue(obj, key, parent.fields[key])
+        }
+        obj["id"] = parent.id;
+        obj["rev"] = parent.rev;
+        obj["url"] = parent.url;
+        return pupa(text, obj);
+    }
+    private static setFieldValue(obj:object, fieldName:string, value:any)
+    {
+        const parts:string[] = fieldName.split(".", 2);
+        if (parts.length == 2)
+        {
+            if (obj[parts[0]] === undefined)
+            {
+                obj[parts[0]] = {}
+            }
+            this.setFieldValue(obj[parts[0]], fieldName.substring(parts[0].length+1), value)
+        }
+        else
+        {
+            obj[parts[0]] = value;
+        }
     }
 }
 

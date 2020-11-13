@@ -2,8 +2,8 @@
 	"manifestVersion": 1,
 	"id": "ChildTasksTemplate",
 	"version": "1.0.0",
-	"public": true,
 	"name": "Child Tasks Template",
+	"public": true,
 	"publisher": "Fiveforty",
 	"description": "This extension enables creating user story or bug child tasks from a template.",
 	"targets": [
@@ -42,7 +42,7 @@
 				"text": "Add tasks",
 				"toolbarText": "Add tasks",
 				"title": "Creates child tasks from the defined template.",
-				"uri": "static/app.html"
+				"uri": "extension.html"
 			}
 		},
 		{
@@ -57,8 +57,7 @@
 			],
 			"properties": {
 				"name": "Child Tasks Template",
-				"uri": "static/settings.html",
-				"icon": "static/settings-icon.png",
+				"uri": "settings.html",
 				"supportsMobile": true
 			}
 		}

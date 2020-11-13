@@ -1,5 +1,5 @@
 const path = require("path")
-const CopyWebpackPlugin = require("copy-webpack-plugin")
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
     target: "web",
     devtool: "inline-source-map",
@@ -8,15 +8,20 @@ module.exports = {
         port: 3000
     },
     plugins: [
-        new CopyWebpackPlugin({
-            patterns: [
-                { from: "**", context: "static" },
-                { from: "**", context: "node_modules/azure-devops-extension-sdk/" }
-            ]
-        })],
+        new HtmlWebpackPlugin({
+            chunks:["extension"],
+            filename:"extension.html",
+            template: 'src/extension/extension.html'
+        }),
+        new HtmlWebpackPlugin({
+            chunks:["settings"],
+            filename:"settings.html",
+            template: 'src/settings/settings.html'
+        })
+    ],
     entry: {
-        app: './src/app.ts',
-        settings: './src/Settings/settings.ts'
+        extension: './src/extension/extension.ts',
+        settings: './src/settings/settings.ts'
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -35,9 +40,6 @@ module.exports = {
     stats: {
         warnings: false
     },
-    externals: [
-        /^SDK\/.*/, /^VSS\/.*/, /^TFS\/.*/, /^q$/, /^ReleaseManagement\/.*/,
-    ],
     module: {
         rules: [
             {
@@ -53,14 +55,8 @@ module.exports = {
                 use: ["style-loader", "css-loader"],
             },
             {
-                test: /\.woff$/,
-                use: [{
-                    loader: 'base64-inline-loader'
-                }]
-            },
-            {
-                test: /\.html$/,
-                loader: "file-loader"
+                test: /\.(woff|png|jpg|gif|svg)$/,
+                use: ['url-loader']
             }
         ]
     }

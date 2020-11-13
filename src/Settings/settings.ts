@@ -1,12 +1,14 @@
 import { CommonServiceIds, IExtensionDataService, IProjectPageService } from "azure-devops-extension-api"
 import * as SDK from "azure-devops-extension-sdk"
+import JSONEditor from "jsoneditor"
 import { SettingsData } from "./SettingsData"
-import "./settings.css"
+import "./settings.scss"
 
 class Program {
     public static settings: SettingsData
+    private static editor: JSONEditor
     public static async run() {
-        await SDK.init({
+        SDK.init({
             applyTheme: true,
             loaded: false,
         })
@@ -24,24 +26,26 @@ class Program {
         this.initForm()
         SDK.notifyLoadSucceeded()
     }
-    private static async getField(name: string): Promise<HTMLInputElement> {
-        const field = document.querySelector('[name="' + name + '"]') as HTMLInputElement
-        if (field === null) {
-            throw Error("The form query field with name " + name + " was not found.")
+    private static getTasksTemplateField(): HTMLElement {
+        const tasksTemplateId = "tasks-template";
+        const element = document.getElementById(tasksTemplateId);
+        if (!element)
+        {
+            throw Error("The tasks template editor element(id="+tasksTemplateId+") not found.");            
         }
-        return field
-    }
-    private static async getTasksTemplateField(): Promise<HTMLInputElement> {
-        return await this.getField("tasks-template")
+        return element;
     }
     private static async initForm(): Promise<void> {
         const tasksTemplateField = await Program.getTasksTemplateField()
         const tasksTemplateValue = await Program.settings.getChildTasksTemplate()
+        const options = {}
+        Program.editor = new JSONEditor(tasksTemplateField, options)
+
         if (tasksTemplateValue === null) {
-            tasksTemplateField.value = ""
+            Program.editor.set("")
         }
         else {
-            tasksTemplateField.value = tasksTemplateValue
+            Program.editor.set(tasksTemplateValue)
         }
         const button = document.getElementById('child-tasks-template-button')
         if (button === null) {
@@ -49,8 +53,14 @@ class Program {
         }
         button.addEventListener('click', async (e: Event): Promise<void> => {
             e.preventDefault()
-            const templateField = await Program.getTasksTemplateField()
-            await Program.settings.setChildTasksTemplate(templateField.value)
+            if (Program.editor)
+            {
+                await Program.settings.setChildTasksTemplate(Program.editor.get())
+            }
+            else
+            {
+                throw Error("JSON Editor object not defined.")
+            }
         })
     }
 }

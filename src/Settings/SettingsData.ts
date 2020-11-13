@@ -17,8 +17,12 @@ export class SettingsData {
 
     private async getValue(fieldName: string): Promise<string | null> {
         try {
-            const value = await this.dataService.getValue(fieldName + "-" + this.projectId) as string;
-            return (value) ? value : null;
+            let value = await this.dataService.getValue(fieldName + "-" + this.projectId) as string;
+            if (!value.startsWith("{"))
+            {
+                value = "{}"
+            }
+            return value;
         }
         catch
         {
