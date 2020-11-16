@@ -1,0 +1,25 @@
+{
+  "tasks": [
+    {
+      "name": "Design Task",
+      "fields": [
+        { "name": "System.Title", "value": "{System.Title} AF:{id}" },
+        { "name": "Microsoft.VSTS.Common.Activity", "value": "Design" }
+      ]
+    },
+    {
+      "name": "Dev Task",
+      "fields": [
+        { "name": "System.Title", "value": "{System.Title} DEV:{id}" },
+        { "name": "Microsoft.VSTS.Common.Activity", "value": "Development" }
+      ]
+    },
+    {
+      "name": "Test Task",
+      "fields": [
+        { "name": "System.Title", "value": "{System.Title} TEST:{id}" },
+        { "name": "Microsoft.VSTS.Common.Activity", "value": "Test" }
+      ]
+    }
+  ]
+}
