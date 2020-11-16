@@ -3,22 +3,68 @@
     {
       "name": "Design Task",
       "fields": [
-        { "name": "System.Title", "value": "{System.Title} AF:{id}" },
-        { "name": "Microsoft.VSTS.Common.Activity", "value": "Design" }
+        {
+          "name": "System.Title",
+          "value": "{System.Title} AF:{id}"
+        },
+        {
+          "name": "System.IterationPath",
+          "value": "{System.IterationPath}"
+        },
+        {
+          "name": "System.AreaPath",
+          "value": "{System.AreaPath}"
+        },
+        {
+          "name": "Microsoft.VSTS.Common.Priority",
+          "value": "{Microsoft.VSTS.Common.Priority}"
+        },
+        {
+          "name": "Microsoft.VSTS.Common.Activity",
+          "value": "Design"
+        }
       ]
     },
     {
       "name": "Dev Task",
       "fields": [
-        { "name": "System.Title", "value": "{System.Title} DEV:{id}" },
-        { "name": "Microsoft.VSTS.Common.Activity", "value": "Development" }
+        {
+          "name": "System.Title",
+          "value": "{System.Title} DEV:{id}"
+        },
+        {
+          "name": "System.IterationPath",
+          "value": "{System.IterationPath}"
+        },
+        {
+          "name": "System.AreaPath",
+          "value": "{System.AreaPath}"
+        },
+        {
+          "name": "Microsoft.VSTS.Common.Activity",
+          "value": "Development"
+        }
       ]
     },
     {
       "name": "Test Task",
       "fields": [
-        { "name": "System.Title", "value": "{System.Title} TEST:{id}" },
-        { "name": "Microsoft.VSTS.Common.Activity", "value": "Test" }
+        {
+          "name": "System.Title",
+          "value": "{System.Title} TEST:{id}"
+        },
+        {
+          "name": "System.IterationPath",
+          "value": "{System.IterationPath}"
+        },
+        {
+          "name": "System.AreaPath",
+          "value": "{System.AreaPath}"
+        },
+        {
+          "name": "Microsoft.VSTS.Common.Activity",
+          "value": "Testing"
+        }
       ]
     }
   ]

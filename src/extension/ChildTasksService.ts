@@ -67,7 +67,7 @@ class ChildTasksService {
         if (!task) {
           continue;
         }
-        for (let j = 0; i < task.fields.length; i++) {
+        for (let j = 0; j < task.fields.length; j++) {
           const field = task.fields[j] as IFieldTemplate;
           if (!field) {
             continue;
@@ -75,7 +75,7 @@ class ChildTasksService {
           patch.push(
             this.newFieldOperation(
               field.name,
-              ChildTasksService.interpolate(name, parent)
+              ChildTasksService.interpolate(field.value, parent)
             )
           );
         }
@@ -89,7 +89,11 @@ class ChildTasksService {
       }
     }
   }
-  private static interpolate(text: string, parent: WorkItem): string {
+  private static interpolate(text: string | null | undefined, parent: WorkItem): string | null {
+    if (!text)
+    {
+      return null;
+      }
     let obj = {};
     const keys = Object.keys(parent.fields);
     for (const key of keys) {
