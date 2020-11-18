@@ -7,6 +7,7 @@ import * as SDK from "azure-devops-extension-sdk";
 import JSONEditor, { JSONEditorOptions } from "jsoneditor";
 import { SettingsData } from "./SettingsData";
 import schema from "./ITasksTemplate.json";
+import "jsoneditor/dist/jsoneditor.css";
 import "./settings.scss";
 
 class Program {

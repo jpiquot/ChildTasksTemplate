@@ -30,7 +30,7 @@ module.exports = {
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js"],
-        modules: [path.resolve("./src"), path.resolve("./src/settings"), path.resolve("./node_modules")],
+        modules: [path.resolve("./src"), path.resolve("./node_modules")],
         alias: {
             "azure-devops-ui": path.resolve("./node_modules/azure-devops-ui"),
             "azure-devops-extension-sdk": path.resolve("./node_modules/azure-devops-extension-sdk"),
