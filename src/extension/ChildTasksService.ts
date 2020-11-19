@@ -10,11 +10,11 @@ import {
   JsonPatchOperation,
   Operation,
 } from "azure-devops-extension-api/WebApi";
-import { SettingsData } from "src/settings/SettingsData";
+import { SettingsData } from "../settings/SettingsData";
 import {
   IFieldTemplate,
   ITaskTemplate,
-} from "src/settings/TaskTemplate";
+} from "../settings/TaskTemplate";
 
 class ChildTasksService {
   private workClient?: WorkItemTrackingRestClient;

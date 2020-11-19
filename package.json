@@ -39,7 +39,7 @@
     "copy-webpack-plugin": "^6.1.1",
     "css-loader": "^4.3.0",
     "rimraf": "^3.0.2",
-    "saas": "^1.0.0",
+    "node-sass": "^5.0.0",
     "sass-loader": "^10.0.2",
     "style-loader": "^1.2.1",
     "tfx-cli": "^0.8.3",
