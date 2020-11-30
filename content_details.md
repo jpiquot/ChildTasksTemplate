@@ -1,6 +1,6 @@
 # Child Tasks Template extension
 
-Use this extension to enable creating user story or bug child tasks from a template.
+Use this extension to enable creating child tasks from an existing work items and based on a template.
 
 ## Configuration
 
