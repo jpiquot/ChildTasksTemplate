@@ -1,6 +1,6 @@
 # Child Tasks Template extension
 
-Use this extension to enable creating child tasks from an existing work items and based on a template.
+Use this extension to enable creating child tasks from an existing work items and based on a template. Automatically you will be able to generate sub work items under a parent one and with the proper links
 
 ## Configuration
 
