@@ -1,4 +1,4 @@
-# Child Tasks Template extension
+# Create sub tasks linked to your parent work item in one click
 
 Use this extension to enable creating child tasks from an existing work items and based on a template. Automatically you will be able to generate sub work items under a parent one and with the proper links
 
@@ -8,7 +8,7 @@ You can configure this extension in the project settings page.
 
 Parent field values can be used with string interpolation. Parent field values can be used like this : "My text {Field Type}"
 
-You can also use these special values :
+You can also use special values from the parent work item, that will be used to initiate the sub linked tasks :
 
 - id : the parent work item ID value
 - rev : the parent work item revision number
