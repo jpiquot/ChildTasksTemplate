@@ -23,3 +23,7 @@ Just run:
     npm run build
 
 This produces a .vsix file which can be uploaded to the [Visual Studio Marketplace](https://marketplace.visualstudio.com/azuredevops)
+
+## Documentation 
+
+[Details](content_details.md)
