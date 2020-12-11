@@ -4,36 +4,20 @@ Use this extension to enable creating child tasks from an existing work items an
 
 ## Configuration
 
-You can configure this extension in the project settings page.
+There are two things to know to be confortable using this extension.
+- How to setup a "template" of tasks
+- How to create the sub linked tasks
 
-Parent field values can be used with string interpolation. Parent field values can be used like this : "My text {Field Type}"
+### How to setup a template of tasks
 
-You can also use special values from the parent work item, that will be used to initiate the sub linked tasks :
-
-- id : the parent work item ID value
-- rev : the parent work item revision number
-- url : the parent work item URL
-
-```json
-{
-  "tasks": [
-    {
-      "name": "Design Task",
-      "fields": [
-        {
-          "name": "System.Title",
-          "value": "{System.Title} test child task for {id}"
-        }
-      ]
-    }
-  ]
-}
-// Parent Work Item > Id:6756; Title:"My demo user story title"
-//    => "My demo user story title test child task for 6756"
-```
+Go in the extension setup, which is per project. As you can see below, you have a "JSON" file to determine. The easiest way is to copy our sample [Json template](static/demoTemplate.json) and to modify it. In the Azure DevOps Json editor, on the header bar, you can click on "Tree" or "Text". Go to the Text mode and you can copy and paste values, to add tasks to the template.
 
 ![Settings screen](static/project_setup.png)
 
-Template sttings example :
+You can setup parent fields in the sub tasks. By this way, when the system will generate the sub-tasks, you will be able to use "parent task" variables, like the original title, ID, url ... In the value field, as in the sample, when you specify a field, it will be the parent's value.
 
-[Json template](static/demoTemplate.json)
+### How to create the sub linked tasks
+
+When you are on a work item, just go in the options and click on add tasks as below. The sub tasks will be automatically generated.
+
+![Settings screen](static/Add_tasks.png)
