@@ -2,7 +2,7 @@
 trigger:
   branches:
     include:
-    - master
+    - main
   tags:
     include:
     - v*
@@ -12,7 +12,7 @@ jobs:
     vmImage: 'ubuntu-16.04'
   steps:
     - checkout: self
-      clean: true
+      clean: "true"
 
     - task: NodeTool@0
       inputs:
@@ -24,11 +24,13 @@ jobs:
         command: install
       displayName: 'Install dependencies'
 
-    - script: 'npm run build' 
-      displayName: 'Build package'
+    - script: 'npm run package'
+      condition: startsWith(variables['Build.SourceBranch'], 'refs/tags/v')
+      displayName: 'Create release package'
 
-    - script: 'npm run package' 
-      displayName: 'Create package'
+    - script: 'npm run package:dev'
+      condition: not(startsWith(variables['Build.SourceBranch'], 'refs/tags/v'))
+      displayName: 'Create preview package'
 
     - publish: './bin'
       artifact: Extension
