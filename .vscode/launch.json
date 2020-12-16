@@ -13,8 +13,8 @@
             "webRoot": "${workspaceFolder}",
             "pathMappings": [
                 {
-                    "url": "https://localhost:3000/dist/src",
-                    "path": "${workspaceFolder}/src"
+                    "url": "https://localhost:3000/src",
+                    "path": "${workspaceFolder}/"
                 },
                 {
                     "url": "webpack:///~/",
@@ -55,7 +55,7 @@
                 {
                     "url": "webpack:///",
                     "path": ""
-                }                
+                }
             ]
         },
         {
