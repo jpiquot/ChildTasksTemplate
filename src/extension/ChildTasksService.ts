@@ -1,6 +1,8 @@
 import {
+  IWorkItemFormService,
   WorkItem,
   WorkItemTrackingRestClient,
+  WorkItemTrackingServiceIds
 } from "azure-devops-extension-api/WorkItemTracking";
 import pupa from "pupa";
 
@@ -15,13 +17,24 @@ import {
   IFieldTemplate,
   ITaskTemplate,
 } from "../settings/TaskTemplate";
+import * as SDK from "azure-devops-extension-sdk";
 
 class ChildTasksService {
-  private workClient?: WorkItemTrackingRestClient;
+  private workClient?: WorkItemTrackingRestClient
+  private clientForm?: IWorkItemFormService
   settings: SettingsData;
 
   constructor(settings: SettingsData) {
     this.settings = settings;
+  }
+  private async getFormService() : Promise<IWorkItemFormService>
+  {
+    if (!this.clientForm) {
+      this.clientForm = await SDK.getService<IWorkItemFormService>(
+        WorkItemTrackingServiceIds.WorkItemFormService
+      );
+    }
+    return this.clientForm;
   }
   private async getWorkClient(): Promise<WorkItemTrackingRestClient> {
     if (!this.workClient) {
@@ -86,6 +99,11 @@ class ChildTasksService {
           "Task"
         );
         console.info("Created task " + workItem.id);
+      }
+      const formService = await this.getFormService();
+      if (! await formService.isDirty())
+      {
+        await formService.refresh();
       }
     }
   }
