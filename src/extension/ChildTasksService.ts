@@ -115,7 +115,13 @@ class ChildTasksService {
     let obj = {};
     const keys = Object.keys(parent.fields);
     for (const key of keys) {
-      ChildTasksService.setFieldValue(obj, key, parent.fields[key]);
+      try {
+        ChildTasksService.setFieldValue(obj, key, parent.fields[key]);
+      }
+      catch (Error)
+      {
+        console.error("An error accured while setting field value. Name '"+key+"'; Value '"+parent.fields[key]+"'."+Error.message);
+      }
     }
     obj["id"] = parent.id;
     obj["rev"] = parent.rev;
@@ -134,7 +140,7 @@ class ChildTasksService {
         value
       );
     } else {
-      obj[parts[0]] = value;
+      obj[fieldName] = value;
     }
   }
 }
