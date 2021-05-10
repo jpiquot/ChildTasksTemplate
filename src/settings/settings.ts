@@ -59,7 +59,7 @@ class Program {
   }
   private static async initForm(): Promise<void> {
     const tasksTemplateField = Program.getTasksTemplateField();
-    const tasksTemplateValue = await Program.settings.getChildTasksTemplate();
+    const tasksTemplateValue = await Program.settings.getChildTasksTemplateSetup();
     const options:JSONEditorOptions = {
       mode: "tree",
       modes:["tree", "text"],

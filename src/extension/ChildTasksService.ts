@@ -12,18 +12,18 @@ import {
   JsonPatchOperation,
   Operation,
 } from "azure-devops-extension-api/WebApi";
-import { SettingsData } from "../settings/SettingsData";
 import * as SDK from "azure-devops-extension-sdk";
 import { Task } from "src/settings/Task";
 import { Field } from "src/settings/Field";
+import { Template } from "src/settings/Template";
 
 class ChildTasksService {
   private workClient?: WorkItemTrackingRestClient
   private clientForm?: IWorkItemFormService
-  settings: SettingsData;
+  templates: Template[];
 
-  constructor(settings: SettingsData) {
-    this.settings = settings;
+  constructor(templates: Template[]) {
+    this.templates = templates;
   }
   private async getFormService() : Promise<IWorkItemFormService>
   {
@@ -64,40 +64,41 @@ class ChildTasksService {
   public async execute(context: any): Promise<void> {
     const client = await this.getWorkClient();
     const parent = await client.getWorkItem(context.workItemId);
-    const templates = await this.settings.getChildTasksTemplate();
 
-    if (!templates) {
+    if (!this.templates) {
       console.warn("Template is undefined or has an incorrect format.");
       return;
     }
     if (context.workItemAvailable) {
-      let template = templates.templates[0];
-      for (let i = 0; i < template.tasks.length; i++) {
-        const patch = new Array<JsonPatchOperation>();
-        patch.push(this.newParentRelation(parent));
-        const task = template.tasks[i] as Task;
-        if (!task) {
-          continue;
-        }
-        for (let j = 0; j < task.fields.length; j++) {
-          const field = task.fields[j] as Field;
-          if (!field) {
+      for (let t = 0; t < this.templates.length; t++) {
+        let template = this.templates[t];
+        for (let i = 0; i < template.tasks.length; i++) {
+          const patch = new Array<JsonPatchOperation>();
+          patch.push(this.newParentRelation(parent));
+          const task = template.tasks[i] as Task;
+          if (!task) {
             continue;
           }
-          patch.push(
-            this.newFieldOperation(
-              field.name,
-              ChildTasksService.interpolate(field.value, parent)
-            )
-          );
-        }
+          for (let j = 0; j < task.fields.length; j++) {
+            const field = task.fields[j] as Field;
+            if (!field) {
+              continue;
+            }
+            patch.push(
+              this.newFieldOperation(
+                field.name,
+                ChildTasksService.interpolate(field.value, parent)
+              )
+            );
+          }
 
-        const workItem = await client.createWorkItem(
-          patch as JsonPatchDocument,
-          context.currentProjectGuid,
-          "Task"
-        );
-        console.info("Created task " + workItem.id);
+          const workItem = await client.createWorkItem(
+            patch as JsonPatchDocument,
+            context.currentProjectGuid,
+            "Task"
+          );
+          console.info("Created task " + workItem.id);
+        }
       }
       const formService = await this.getFormService();
       if (! await formService.isDirty())

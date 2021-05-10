@@ -4,9 +4,8 @@ import {
   IProjectPageService,
 } from "azure-devops-extension-api";
 import * as SDK from "azure-devops-extension-sdk";
+import { IExtensionContext } from "azure-devops-extension-sdk";
 import { SettingsData } from "../settings/SettingsData";
-import { ChooseTemplateDialog } from "./ChooseTemplateDialog";
-
 class Program {
     public static initialized = false;
     public static settings: SettingsData;
@@ -25,7 +24,7 @@ class Program {
         if (project === undefined) {
             throw Error("No project defined.");
         }
-        const extension: SDK.IExtensionContext = SDK.getExtensionContext();
+        const extension: IExtensionContext = SDK.getExtensionContext();
         const dataService = await SDK.getService<IExtensionDataService>(
             CommonServiceIds.ExtensionDataService
         );
@@ -36,11 +35,8 @@ class Program {
             ),
             project.id
         );
-        var choose = new ChooseTemplateDialog(this.settings);
-        await choose.initDialog();
         SDK.notifyLoadSucceeded();
     }
-
 }
 if (Program.initialized) {
   console.error("The choose dialog is already initialized.");

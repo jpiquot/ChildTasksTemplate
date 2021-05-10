@@ -12,7 +12,7 @@
         "package:dev": "npm run compile:dev && tfx extension create --output-path ./bin --manifest-globs vss-extension.json --overrides-file vss-extension-dev.json",
         "publish": "npm run compile && tfx extension publish --output-path ./bin --manifest-globs vss-extension.json",
         "publish:dev": "npm run compile:dev && tfx extension publish --output-path ./bin --manifest-globs vss-extension.json --overrides-file vss-extension-dev.json",
-        "start:dev": "webpack serve --mode development --env development --hot --port 6221 --static ."
+        "start:dev": "webpack serve --mode development --env development --port 6221"
     },
     "dependencies": {},
     "devDependencies": {

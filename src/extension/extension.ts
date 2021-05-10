@@ -1,14 +1,20 @@
 import {
   CommonServiceIds,
   IExtensionDataService,
+  IHostPageLayoutService,
   IProjectPageService,
 } from "azure-devops-extension-api";
 import * as SDK from "azure-devops-extension-sdk";
+import { IExtensionContext } from "azure-devops-extension-sdk";
+import { ChooseTemplateDialog } from "../choose/ChooseTemplateDialog";
 import { SettingsData } from "../settings/SettingsData";
 import { ChildTasksService } from "./ChildTasksService";
 
 class Program {
   static settings: SettingsData;
+  static context: IExtensionContext;
+  static pageService: IHostPageLayoutService;
+
   public static async run() : Promise<void> {
     SDK.init({
       applyTheme: true,
@@ -24,13 +30,15 @@ class Program {
     if (project === undefined) {
       throw Error("No project defined.");
     }
-    const extension: SDK.IExtensionContext = SDK.getExtensionContext();
+    Program.context = SDK.getExtensionContext();
     const dataService = await SDK.getService<IExtensionDataService>(
       CommonServiceIds.ExtensionDataService
     );
+    Program.pageService = await SDK.getService<IHostPageLayoutService>(CommonServiceIds.HostPageLayoutService);
+
     Program.settings = new SettingsData(
       await dataService.getExtensionDataManager(
-        extension.id,
+        Program.context.id,
         await SDK.getAccessToken()
       ),
       project.id
@@ -39,7 +47,9 @@ class Program {
     SDK.register(SDK.getContributionId(), () => {
       return {
         execute: async (context: any): Promise<void> => {
-          await new ChildTasksService(Program.settings).execute(context);
+          const dialog = new ChooseTemplateDialog(Program.settings, Program.context, Program.pageService);
+          await dialog.showDialog();
+          await new ChildTasksService(await dialog.getTemplates()).execute(context);
         },
       };
     });
@@ -48,3 +58,4 @@ class Program {
 }
 
 Program.run();
+
