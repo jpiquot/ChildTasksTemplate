@@ -1,7 +1,7 @@
 {
 	"manifestVersion": 1,
 	"id": "ChildTasksTemplate",
-	"version": "1.0.7",
+	"version": "2.0.0",
 	"name": "Child Tasks Template",
 	"public": true,
 	"publisher": "Fiveforty",
@@ -26,6 +26,15 @@
 	"categories": [ "Azure Boards" ],
 	"scopes": [ "vso.work_write" ],
 	"contributions": [
+		{
+			"id": "registration-form",
+			"type": "ms.vss-web.control",
+			"description": "Choose work item creation template",
+			"targets": [],
+			"properties": {
+				"uri": "dist/choose.html"
+        	}
+		},
 		{
 			"id": "child-tasks-template-action",
 			"type": "ms.vss-web.action",

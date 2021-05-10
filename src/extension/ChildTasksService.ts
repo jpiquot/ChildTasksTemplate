@@ -13,11 +13,9 @@ import {
   Operation,
 } from "azure-devops-extension-api/WebApi";
 import { SettingsData } from "../settings/SettingsData";
-import {
-  IFieldTemplate,
-  ITaskTemplate,
-} from "../settings/TaskTemplate";
 import * as SDK from "azure-devops-extension-sdk";
+import { Task } from "src/settings/Task";
+import { Field } from "src/settings/Field";
 
 class ChildTasksService {
   private workClient?: WorkItemTrackingRestClient
@@ -66,22 +64,23 @@ class ChildTasksService {
   public async execute(context: any): Promise<void> {
     const client = await this.getWorkClient();
     const parent = await client.getWorkItem(context.workItemId);
-    const template = await this.settings.getChildTasksTemplate();
+    const templates = await this.settings.getChildTasksTemplate();
 
-    if (!template) {
+    if (!templates) {
       console.warn("Template is undefined or has an incorrect format.");
       return;
     }
     if (context.workItemAvailable) {
+      let template = templates.templates[0];
       for (let i = 0; i < template.tasks.length; i++) {
         const patch = new Array<JsonPatchOperation>();
         patch.push(this.newParentRelation(parent));
-        const task = template.tasks[i] as ITaskTemplate;
+        const task = template.tasks[i] as Task;
         if (!task) {
           continue;
         }
         for (let j = 0; j < task.fields.length; j++) {
-          const field = task.fields[j] as IFieldTemplate;
+          const field = task.fields[j] as Field;
           if (!field) {
             continue;
           }

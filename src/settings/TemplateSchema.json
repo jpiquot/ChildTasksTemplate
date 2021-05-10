@@ -1,0 +1,602 @@
+{
+	"$schema": "http://json-schema.org/draft-07/schema",
+	"$id": "http://example.com/example.json",
+	"type": "object",
+	"title": "The root schema",
+	"description": "The root schema comprises the entire JSON document.",
+	"default": {},
+	"examples": [
+		{
+			"templates": [
+				{
+					"name": "default",
+					"tasks": [
+						{
+							"name": "Design Task",
+							"fields": [
+								{
+									"name": "System.Title",
+									"value": "{System.Title} AF:{id}"
+								},
+								{
+									"name": "System.IterationPath",
+									"value": "{System.IterationPath}"
+								},
+								{
+									"name": "System.AreaPath",
+									"value": "{System.AreaPath}"
+								},
+								{
+									"name": "Microsoft.VSTS.Common.Priority",
+									"value": "{Microsoft.VSTS.Common.Priority}"
+								},
+								{
+									"name": "Microsoft.VSTS.Common.Activity",
+									"value": "Design"
+								}
+							]
+						},
+						{
+							"name": "Dev Task",
+							"fields": [
+								{
+									"name": "System.Title",
+									"value": "{System.Title} DEV:{id}"
+								},
+								{
+									"name": "System.IterationPath",
+									"value": "{System.IterationPath}"
+								},
+								{
+									"name": "System.AreaPath",
+									"value": "{System.AreaPath}"
+								},
+								{
+									"name": "Microsoft.VSTS.Common.Activity",
+									"value": "Development"
+								}
+							]
+						},
+						{
+							"name": "Test Task",
+							"fields": [
+								{
+									"name": "System.Title",
+									"value": "{System.Title} TEST:{id}"
+								},
+								{
+									"name": "System.IterationPath",
+									"value": "{System.IterationPath}"
+								},
+								{
+									"name": "System.AreaPath",
+									"value": "{System.AreaPath}"
+								},
+								{
+									"name": "Microsoft.VSTS.Common.Activity",
+									"value": "Testing"
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "other",
+					"tasks": [
+						{
+							"name": "Design Task",
+							"fields": [
+								{
+									"name": "System.Title",
+									"value": "{System.Title} AF:{id}"
+								},
+								{
+									"name": "System.IterationPath",
+									"value": "{System.IterationPath}"
+								},
+								{
+									"name": "System.AreaPath",
+									"value": "{System.AreaPath}"
+								},
+								{
+									"name": "Microsoft.VSTS.Common.Priority",
+									"value": "{Microsoft.VSTS.Common.Priority}"
+								},
+								{
+									"name": "Microsoft.VSTS.Common.Activity",
+									"value": "Design"
+								}
+							]
+						},
+						{
+							"name": "Dev Task",
+							"fields": [
+								{
+									"name": "System.Title",
+									"value": "{System.Title} DEV:{id}"
+								},
+								{
+									"name": "System.IterationPath",
+									"value": "{System.IterationPath}"
+								},
+								{
+									"name": "System.AreaPath",
+									"value": "{System.AreaPath}"
+								},
+								{
+									"name": "Microsoft.VSTS.Common.Activity",
+									"value": "Development"
+								}
+							]
+						},
+						{
+							"name": "Test Task",
+							"fields": [
+								{
+									"name": "System.Title",
+									"value": "{System.Title} TEST:{id}"
+								},
+								{
+									"name": "System.IterationPath",
+									"value": "{System.IterationPath}"
+								},
+								{
+									"name": "System.AreaPath",
+									"value": "{System.AreaPath}"
+								},
+								{
+									"name": "Microsoft.VSTS.Common.Activity",
+									"value": "Testing"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"required": [
+		"templates"
+	],
+	"properties": {
+		"templates": {
+			"$id": "#/properties/templates",
+			"type": "array",
+			"title": "The templates schema",
+			"description": "An explanation about the purpose of this instance.",
+			"default": [],
+			"examples": [
+				[
+					{
+						"name": "default",
+						"tasks": [
+							{
+								"name": "Design Task",
+								"fields": [
+									{
+										"name": "System.Title",
+										"value": "{System.Title} AF:{id}"
+									},
+									{
+										"name": "System.IterationPath",
+										"value": "{System.IterationPath}"
+									},
+									{
+										"name": "System.AreaPath",
+										"value": "{System.AreaPath}"
+									},
+									{
+										"name": "Microsoft.VSTS.Common.Priority",
+										"value": "{Microsoft.VSTS.Common.Priority}"
+									},
+									{
+										"name": "Microsoft.VSTS.Common.Activity",
+										"value": "Design"
+									}
+								]
+							},
+							{
+								"name": "Dev Task",
+								"fields": [
+									{
+										"name": "System.Title",
+										"value": "{System.Title} DEV:{id}"
+									},
+									{
+										"name": "System.IterationPath",
+										"value": "{System.IterationPath}"
+									},
+									{
+										"name": "System.AreaPath",
+										"value": "{System.AreaPath}"
+									},
+									{
+										"name": "Microsoft.VSTS.Common.Activity",
+										"value": "Development"
+									}
+								]
+							},
+							{
+								"name": "Test Task",
+								"fields": [
+									{
+										"name": "System.Title",
+										"value": "{System.Title} TEST:{id}"
+									},
+									{
+										"name": "System.IterationPath",
+										"value": "{System.IterationPath}"
+									},
+									{
+										"name": "System.AreaPath",
+										"value": "{System.AreaPath}"
+									},
+									{
+										"name": "Microsoft.VSTS.Common.Activity",
+										"value": "Testing"
+									}
+								]
+							}
+						]
+					},
+					{
+						"name": "other",
+						"tasks": [
+							{
+								"name": "Design Task",
+								"fields": [
+									{
+										"name": "System.Title",
+										"value": "{System.Title} AF:{id}"
+									},
+									{
+										"name": "System.IterationPath",
+										"value": "{System.IterationPath}"
+									},
+									{
+										"name": "System.AreaPath",
+										"value": "{System.AreaPath}"
+									},
+									{
+										"name": "Microsoft.VSTS.Common.Priority",
+										"value": "{Microsoft.VSTS.Common.Priority}"
+									},
+									{
+										"name": "Microsoft.VSTS.Common.Activity",
+										"value": "Design"
+									}
+								]
+							},
+							{
+								"name": "Dev Task",
+								"fields": [
+									{
+										"name": "System.Title",
+										"value": "{System.Title} DEV:{id}"
+									},
+									{
+										"name": "System.IterationPath",
+										"value": "{System.IterationPath}"
+									},
+									{
+										"name": "System.AreaPath",
+										"value": "{System.AreaPath}"
+									},
+									{
+										"name": "Microsoft.VSTS.Common.Activity",
+										"value": "Development"
+									}
+								]
+							},
+							{
+								"name": "Test Task",
+								"fields": [
+									{
+										"name": "System.Title",
+										"value": "{System.Title} TEST:{id}"
+									},
+									{
+										"name": "System.IterationPath",
+										"value": "{System.IterationPath}"
+									},
+									{
+										"name": "System.AreaPath",
+										"value": "{System.AreaPath}"
+									},
+									{
+										"name": "Microsoft.VSTS.Common.Activity",
+										"value": "Testing"
+									}
+								]
+							}
+						]
+					}
+				]
+			],
+			"additionalItems": true,
+			"items": {
+				"$id": "#/properties/templates/items",
+				"anyOf": [
+					{
+						"$id": "#/properties/templates/items/anyOf/0",
+						"type": "object",
+						"title": "The first anyOf schema",
+						"description": "An explanation about the purpose of this instance.",
+						"default": {},
+						"examples": [
+							{
+								"name": "default",
+								"tasks": [
+									{
+										"name": "Design Task",
+										"fields": [
+											{
+												"name": "System.Title",
+												"value": "{System.Title} AF:{id}"
+											},
+											{
+												"name": "System.IterationPath",
+												"value": "{System.IterationPath}"
+											},
+											{
+												"name": "System.AreaPath",
+												"value": "{System.AreaPath}"
+											},
+											{
+												"name": "Microsoft.VSTS.Common.Priority",
+												"value": "{Microsoft.VSTS.Common.Priority}"
+											},
+											{
+												"name": "Microsoft.VSTS.Common.Activity",
+												"value": "Design"
+											}
+										]
+									},
+									{
+										"name": "Dev Task",
+										"fields": [
+											{
+												"name": "System.Title",
+												"value": "{System.Title} DEV:{id}"
+											},
+											{
+												"name": "System.IterationPath",
+												"value": "{System.IterationPath}"
+											},
+											{
+												"name": "System.AreaPath",
+												"value": "{System.AreaPath}"
+											},
+											{
+												"name": "Microsoft.VSTS.Common.Activity",
+												"value": "Development"
+											}
+										]
+									},
+									{
+										"name": "Test Task",
+										"fields": [
+											{
+												"name": "System.Title",
+												"value": "{System.Title} TEST:{id}"
+											},
+											{
+												"name": "System.IterationPath",
+												"value": "{System.IterationPath}"
+											},
+											{
+												"name": "System.AreaPath",
+												"value": "{System.AreaPath}"
+											},
+											{
+												"name": "Microsoft.VSTS.Common.Activity",
+												"value": "Testing"
+											}
+										]
+									}
+								]
+							}
+						],
+						"required": [
+							"name",
+							"tasks"
+						],
+						"properties": {
+							"name": {
+								"$id": "#/properties/templates/items/anyOf/0/properties/name",
+								"type": "string",
+								"title": "The name schema",
+								"description": "An explanation about the purpose of this instance.",
+								"default": "",
+								"examples": [
+									"default"
+								]
+							},
+							"tasks": {
+								"$id": "#/properties/templates/items/anyOf/0/properties/tasks",
+								"type": "array",
+								"title": "The tasks schema",
+								"description": "An explanation about the purpose of this instance.",
+								"default": [],
+								"examples": [
+									[
+										{
+											"name": "Design Task",
+											"fields": [
+												{
+													"name": "System.Title",
+													"value": "{System.Title} AF:{id}"
+												},
+												{
+													"name": "System.IterationPath",
+													"value": "{System.IterationPath}"
+												},
+												{
+													"name": "System.AreaPath",
+													"value": "{System.AreaPath}"
+												},
+												{
+													"name": "Microsoft.VSTS.Common.Priority",
+													"value": "{Microsoft.VSTS.Common.Priority}"
+												},
+												{
+													"name": "Microsoft.VSTS.Common.Activity",
+													"value": "Design"
+												}
+											]
+										},
+										{
+											"name": "Dev Task",
+											"fields": [
+												{
+													"name": "System.Title",
+													"value": "{System.Title} DEV:{id}"
+												},
+												{
+													"name": "System.IterationPath",
+													"value": "{System.IterationPath}"
+												},
+												{
+													"name": "System.AreaPath",
+													"value": "{System.AreaPath}"
+												},
+												{
+													"name": "Microsoft.VSTS.Common.Activity",
+													"value": "Development"
+												}
+											]
+										}
+									]
+								],
+								"additionalItems": true,
+								"items": {
+									"$id": "#/properties/templates/items/anyOf/0/properties/tasks/items",
+									"anyOf": [
+										{
+											"$id": "#/properties/templates/items/anyOf/0/properties/tasks/items/anyOf/0",
+											"type": "object",
+											"title": "The first anyOf schema",
+											"description": "An explanation about the purpose of this instance.",
+											"default": {},
+											"examples": [
+												{
+													"name": "Design Task",
+													"fields": [
+														{
+															"name": "System.Title",
+															"value": "{System.Title} AF:{id}"
+														},
+														{
+															"name": "System.IterationPath",
+															"value": "{System.IterationPath}"
+														},
+														{
+															"name": "System.AreaPath",
+															"value": "{System.AreaPath}"
+														},
+														{
+															"name": "Microsoft.VSTS.Common.Priority",
+															"value": "{Microsoft.VSTS.Common.Priority}"
+														},
+														{
+															"name": "Microsoft.VSTS.Common.Activity",
+															"value": "Design"
+														}
+													]
+												}
+											],
+											"required": [
+												"name",
+												"fields"
+											],
+											"properties": {
+												"name": {
+													"$id": "#/properties/templates/items/anyOf/0/properties/tasks/items/anyOf/0/properties/name",
+													"type": "string",
+													"title": "The name schema",
+													"description": "An explanation about the purpose of this instance.",
+													"default": "",
+													"examples": [
+														"Design Task"
+													]
+												},
+												"fields": {
+													"$id": "#/properties/templates/items/anyOf/0/properties/tasks/items/anyOf/0/properties/fields",
+													"type": "array",
+													"title": "The fields schema",
+													"description": "An explanation about the purpose of this instance.",
+													"default": [],
+													"examples": [
+														[
+															{
+																"name": "System.Title",
+																"value": "{System.Title} AF:{id}"
+															},
+															{
+																"name": "System.IterationPath",
+																"value": "{System.IterationPath}"
+															}
+														]
+													],
+													"additionalItems": true,
+													"items": {
+														"$id": "#/properties/templates/items/anyOf/0/properties/tasks/items/anyOf/0/properties/fields/items",
+														"anyOf": [
+															{
+																"$id": "#/properties/templates/items/anyOf/0/properties/tasks/items/anyOf/0/properties/fields/items/anyOf/0",
+																"type": "object",
+																"title": "The first anyOf schema",
+																"description": "An explanation about the purpose of this instance.",
+																"default": {},
+																"examples": [
+																	{
+																		"name": "System.Title",
+																		"value": "{System.Title} AF:{id}"
+																	}
+																],
+																"required": [
+																	"name",
+																	"value"
+																],
+																"properties": {
+																	"name": {
+																		"$id": "#/properties/templates/items/anyOf/0/properties/tasks/items/anyOf/0/properties/fields/items/anyOf/0/properties/name",
+																		"type": "string",
+																		"title": "The name schema",
+																		"description": "An explanation about the purpose of this instance.",
+																		"default": "",
+																		"examples": [
+																			"System.Title"
+																		]
+																	},
+																	"value": {
+																		"$id": "#/properties/templates/items/anyOf/0/properties/tasks/items/anyOf/0/properties/fields/items/anyOf/0/properties/value",
+																		"type": "string",
+																		"title": "The value schema",
+																		"description": "An explanation about the purpose of this instance.",
+																		"default": "",
+																		"examples": [
+																			"{System.Title} AF:{id}"
+																		]
+																	}
+																},
+																"additionalProperties": true
+															}
+														]
+													}
+												}
+											},
+											"additionalProperties": true
+										}
+									]
+								}
+							}
+						},
+						"additionalProperties": true
+					}
+				]
+			}
+		}
+	},
+	"additionalProperties": true
+}

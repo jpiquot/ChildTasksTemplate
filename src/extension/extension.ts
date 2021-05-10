@@ -9,7 +9,7 @@ import { ChildTasksService } from "./ChildTasksService";
 
 class Program {
   static settings: SettingsData;
-  public static async run() {
+  public static async run() : Promise<void> {
     SDK.init({
       applyTheme: true,
       loaded: false,

@@ -1,5 +1,5 @@
 import { IExtensionDataManager } from "azure-devops-extension-api";
-import { ITasksTemplate } from "./TaskTemplate";
+import { TemplateSetup } from "./TemplateSetup";
 
 /**
  * Settings are saved on Project level.
@@ -27,7 +27,7 @@ export class SettingsData {
     );
   }
 
-  public async getChildTasksTemplate(): Promise<ITasksTemplate | null> {
-    return (await this.getValue(SettingsData.CHILD_TASKS_TEMPLATE)) as ITasksTemplate;
+  public async getChildTasksTemplate(): Promise<TemplateSetup | null> {
+    return (await this.getValue(SettingsData.CHILD_TASKS_TEMPLATE)) as TemplateSetup;
   }
 }

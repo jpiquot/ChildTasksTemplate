@@ -6,7 +6,7 @@ import {
 import * as SDK from "azure-devops-extension-sdk";
 import JSONEditor, { JSONEditorOptions } from "jsoneditor";
 import { SettingsData } from "./SettingsData";
-import schema from "./ITasksTemplate.json";
+import schema from "./TemplateSchema.json";
 import "jsoneditor/dist/jsoneditor.css";
 import "./settings.scss";
 
@@ -14,7 +14,7 @@ class Program {
   public static initialized = false;
   public static settings: SettingsData;
   private static editor: JSONEditor;
-  public static async run() {
+  public static async run() : Promise<void> {
     SDK.init({
       applyTheme: true,
       loaded: false,

@@ -46,6 +46,7 @@
 			"es5",
 			"es6",
 			"dom",
+			"ESNext",
 			"es2018",
 			"ES2018.Promise"
 		],
@@ -57,4 +58,4 @@
 		".vs",
 		".vscode"
 	],
-} 
+}
