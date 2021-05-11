@@ -16,7 +16,7 @@ module.exports = {
             template: 'src/extension/extension.html'
         }),
         new HtmlWebpackPlugin({
-            chunks:["xhoose"],
+            chunks:["choose"],
             filename:"choose.html",
             template: 'src/choose/choose.html'
         }),

@@ -47,7 +47,7 @@ class Program {
     SDK.register(SDK.getContributionId(), () => {
       return {
         execute: async (context: any): Promise<void> => {
-          const dialog = new ChooseTemplateDialog(Program.settings, Program.context, Program.pageService);
+          const dialog = new ChooseTemplateDialog(Program.settings, Program.pageService);
           await dialog.showDialog();
           await new ChildTasksService(await dialog.getTemplates()).execute(context);
         },

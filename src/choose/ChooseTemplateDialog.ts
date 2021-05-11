@@ -6,8 +6,8 @@ import {
   FASTMenuItem,
 } from '@microsoft/fast-components';
 import { MenuItemRole } from '@microsoft/fast-foundation';
-import { IHostPageLayoutService } from 'azure-devops-extension-api';
-import { IExtensionContext } from 'azure-devops-extension-sdk';
+import { IHostPageLayoutService, IPanelOptions } from 'azure-devops-extension-api';
+import * as SDK from "azure-devops-extension-sdk";
 import { SettingsData } from 'src/settings/SettingsData';
 import { Template } from 'src/settings/Template';
 
@@ -19,13 +19,11 @@ FASTMenuItem;
 
 export class ChooseTemplateDialog {
   settings: SettingsData;
-  context: IExtensionContext;
   pageService: any;
   public templateNames: string[] = [];
 
-  constructor(settings: SettingsData, context : IExtensionContext, pageService : IHostPageLayoutService) {
+  constructor(settings: SettingsData, pageService : IHostPageLayoutService) {
     this.settings = settings;
-    this.context = context;
     this.pageService = pageService;
   }
 
@@ -46,21 +44,29 @@ export class ChooseTemplateDialog {
   }
   public dialogContributionId(): string
   {
-    return this.context.id + ".choose-template-form";
+    return SDK.getExtensionContext().id + ".child-tasks-template-choose";
   }
   public async showDialog(): Promise<void> {
-    this.pageService.openCustomDialog(this.dialogContributionId(), {
+    /*
+    const options: IDialogOptions<string[]> = {
       title: "Child templates",
-      configuration: {
-        message: "Choose templates.",
-        initialValue: this.templateNames
-      },
-      onClose: (result: string[]) => {
+      onClose: (result: string[] | undefined) => {
         if (result !== undefined) {
           this.setTemplates(result);
         }
       }
-    });
+    };
+    this.pageService.openCustomDialog(this.dialogContributionId(), options);
+    */
+    const options: IPanelOptions<string[]> = {
+      title: "Child templates",
+      onClose: (result: string[] | undefined) => {
+        if (result !== undefined) {
+          this.setTemplates(result);
+        }
+      }
+    };
+    this.pageService.openPanel(this.dialogContributionId(), options);
   }
   private setTemplates(value: string[]) {
     this.templateNames = value;

@@ -33,7 +33,7 @@
 	],
 	"contributions": [
 		{
-			"id": "choose_template-form",
+			"id": "child-tasks-template-choose",
 			"type": "ms.vss-web.control",
 			"description": "Choose work item creation template",
 			"targets": [],

@@ -35,6 +35,14 @@ class Program {
             ),
             project.id
         );
+        let contributionId = SDK.getContributionId();
+        SDK.register(contributionId, () => {
+        return {
+            execute: async (_: any): Promise<void> => {
+                console.info("extension executed : " + SDK.getContributionId());
+        },
+      };
+    });
         SDK.notifyLoadSucceeded();
     }
 }

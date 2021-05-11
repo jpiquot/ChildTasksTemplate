@@ -17,6 +17,5 @@
     "html.format.wrapAttributesIndentSize": 8,
     "eslint.format.enable": true,
     "xmlTools.enforcePrettySelfClosingTagOnFormat": true,
-    "editor.tabSize": 8,
     "workbench.sash.size": 8
 }
