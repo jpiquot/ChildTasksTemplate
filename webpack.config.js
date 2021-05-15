@@ -1,6 +1,6 @@
-var path = require("path");
-var CleanWebpackPlugin = require("clean-webpack-plugin");
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+var path = require("path")
+var CleanWebpackPlugin = require("clean-webpack-plugin")
+var HtmlWebpackPlugin = require('html-webpack-plugin')
 module.exports = {
     target: "web",
     devtool: "inline-source-map",
@@ -11,23 +11,23 @@ module.exports = {
     plugins: [
         new CleanWebpackPlugin.CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
-            chunks:["extension"],
-            filename:"extension.html",
+            chunks: ["extension"],
+            filename: "extension.html",
             template: 'src/extension/extension.html'
         }),
         new HtmlWebpackPlugin({
-            chunks:["choose"],
-            filename:"choose.html",
+            chunks: ["choose"],
+            filename: "choose.html",
             template: 'src/choose/choose.html'
         }),
         new HtmlWebpackPlugin({
-            chunks:["settings"],
-            filename:"settings.html",
+            chunks: ["settings"],
+            filename: "settings.html",
             template: 'src/settings/settings.html'
         })
     ],
     entry: {
-        choose: './src/choose/choose.ts',
+        choose: './src/choose/choose.tsx',
         extension: './src/extension/extension.ts',
         settings: './src/settings/settings.ts'
     },

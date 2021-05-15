@@ -1,6 +1,6 @@
-import { Field } from "./Field";
+import { Field } from "./Field"
 
 export interface Task {
-    name: string;
-    fields: Field[];
+    name: string
+    fields: Field[]
 }

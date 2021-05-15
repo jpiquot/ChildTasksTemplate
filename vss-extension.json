@@ -34,7 +34,7 @@
 	"contributions": [
 		{
 			"id": "child-tasks-template-choose",
-			"type": "ms.vss-web.control",
+			"type": "ms.vss-web.external-content",
 			"description": "Choose work item creation template",
 			"targets": [],
 			"properties": {

@@ -50,7 +50,7 @@
 			"es2018",
 			"ES2018.Promise"
 		],
-		"types": ["react"]
+		"types": ["react", "jest", "node"]
 	},
 	"exclude": [
 		"node_modules",
