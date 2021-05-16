@@ -1,9 +1,7 @@
-import react, * as React from "react"
-import * as ReactDOM from "react-dom"
+import React, { Component } from "react"
+import { render } from "react-dom"
 import { Button } from "azure-devops-ui/Button"
 import { ButtonGroup } from "azure-devops-ui/ButtonGroup"
-import { Checkbox } from "azure-devops-ui/Checkbox"
-
 import {
     CommonServiceIds,
     IExtensionDataService,
@@ -12,21 +10,25 @@ import {
 import * as SDK from "azure-devops-extension-sdk"
 import { IExtensionContext } from "azure-devops-extension-sdk"
 import { SettingsData } from "../settings/SettingsData"
+import { TemplateSelect } from "./TemplateSelect"
 
+export class ChooseTemplatePanel extends Component<{}, IChooseTemplatePanelState> {
+    private templateList?: string[]
 
-
-export class ChoosePanel extends React.Component<{}, IChooseState> {
+    private onCheckedTemplatesChange(templates: string[]): void {
+        this.setState({ templateNames: templates })
+    }
 
     constructor(props: {}) {
         super(props)
-        this.state = {}
+        this.state = { templateNames: [] }
     }
     public async componentDidMount() {
         SDK.init()
 
         await SDK.ready()
         const config = SDK.getConfiguration()
-        this.setState(await ChoosePanel.initializeState())
+        this.templateList = await this.getTemplateNames()
         if (config.dialog) {
             // Give the host frame the size of our dialog content so that the dialog can be sized appropriately.
             // This is the case where we know our content size and can explicitly provide it to SDK.resize. If our
@@ -38,7 +40,10 @@ export class ChoosePanel extends React.Component<{}, IChooseState> {
         }
     }
     public static settings: SettingsData
-    public static async initializeState(): Promise<IChooseState> {
+    public async getTemplateNames(): Promise<string[]> {
+        if (this.templateList) {
+            return this.templateList
+        }
         const project = await (
             await SDK.getService<IProjectPageService>(
                 CommonServiceIds.ProjectPageService
@@ -59,38 +64,39 @@ export class ChoosePanel extends React.Component<{}, IChooseState> {
             ),
             project.id
         )
-        const templateNames = await settings.getTemplateNames()
-        const state: IChooseState = { templates: [] }
-        for (let i = 0; i < templateNames.length; i++) {
-            state.templates?.push({ name: templateNames[i] })
-        }
-        return state
+        this.templateList = await settings.getTemplateNames()
+        return this.templateList
     }
+
     public render(): JSX.Element {
-        return (
-            <div className="sample-panel flex-column flex-grow">
-                <div className="flex-grow flex-column flex-center justify-center" style={{ border: "1px solid #eee", margin: "10px 0" }}>
-                    <Checkbox label="test 1" />
-                    <Checkbox label="test 2" />
-                    <Checkbox label="test 3" />
-                    <Checkbox label="test 4" />
+        if (this.templateList) {
+            return (
+                <div className="sample-panel flex-column flex-grow">
+                    <TemplateSelect names={this.templateList} onCheckedNamesChange={this.onCheckedTemplatesChange} />
+                    <ButtonGroup className="sample-panel-button-bar">
+                        <Button
+                            primary={true}
+                            text="OK"
+                            onClick={() => this.close(false)}
+                        />
+                        <Button
+                            text="Cancel"
+                            onClick={() => this.close(true)}
+                        />
+                    </ButtonGroup>
                 </div>
-                <ButtonGroup className="sample-panel-button-bar">
-                    <Button
-                        primary={true}
-                        text="OK"
-                        onClick={() => this.close(false)}
-                    />
-                    <Button
-                        text="Cancel"
-                        onClick={() => this.close(true)}
-                    />
-                </ButtonGroup>
-            </div>
-        )
+            )
+        }
+        else {
+            return (
+                <div className="sample-panel flex-column flex-grow">
+                    <h2>No templates found</h2>
+                </div>
+            )
+        }
     }
     private close(cancel: boolean) {
-        const result: IChooseState = cancel == true ? {} : this.state
+        const result = (cancel) ? [] : this.state.templateNames
         const config = SDK.getConfiguration()
         if (config.dialog) {
             config.dialog.close(result)
@@ -100,6 +106,6 @@ export class ChoosePanel extends React.Component<{}, IChooseState> {
         }
     }
 }
-ReactDOM.render(<ChoosePanel />, document.getElementById("root"))
+render(<ChooseTemplatePanel />, document.getElementById("root"))
 
 

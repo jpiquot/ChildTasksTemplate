@@ -1,5 +1,5 @@
 {
-    "compile-hero.disable-compile-files-on-did-save-code": true,
+    "compile-hero.disable-compile-files-on-did-save-code": false,
     "powershell.codeFormatting.addWhitespaceAroundPipe": true,
     "prettier.tabWidth": 4,
     "npm-scripts.showStartNotification": false,

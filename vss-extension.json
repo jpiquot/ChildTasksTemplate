@@ -38,7 +38,7 @@
 			"description": "Choose work item creation template",
 			"targets": [],
 			"properties": {
-				"uri": "dist/choose.html"
+				"uri": "dist/chooseTemplatePanel.html"
 			}
 		},
 		{

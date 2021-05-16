@@ -6,9 +6,9 @@ import {
 } from "azure-devops-extension-api"
 import * as SDK from "azure-devops-extension-sdk"
 import { IExtensionContext } from "azure-devops-extension-sdk"
-import { ChooseTemplateDialog } from "../choose/ChooseTemplateDialog"
 import { SettingsData } from "../settings/SettingsData"
 import { ChildTasksService } from "./ChildTasksService"
+import { ChooseTemplateForm } from "../chooseTemplatePanel/ChooseTemplateForm"
 
 class Program {
     static settings: SettingsData
@@ -47,7 +47,7 @@ class Program {
         SDK.register(SDK.getContributionId(), () => {
             return {
                 execute: async (context: any): Promise<void> => {
-                    const dialog = new ChooseTemplateDialog(Program.settings, Program.context, Program.pageService)
+                    const dialog = new ChooseTemplateForm(Program.settings, Program.context, Program.pageService)
                     await dialog.showDialog()
                     await new ChildTasksService(await dialog.getTemplates()).execute(context)
                 },
@@ -56,6 +56,5 @@ class Program {
         await SDK.notifyLoadSucceeded()
     }
 }
-
 Program.run()
 

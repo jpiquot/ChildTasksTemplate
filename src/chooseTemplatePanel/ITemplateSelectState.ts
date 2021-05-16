@@ -1,0 +1,4 @@
+interface ITemplateSelectState {
+    checkedList: boolean[]
+}
+

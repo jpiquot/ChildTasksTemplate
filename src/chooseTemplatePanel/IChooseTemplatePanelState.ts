@@ -1,0 +1,4 @@
+interface IChooseTemplatePanelState {
+    templateNames: string[]
+}
+

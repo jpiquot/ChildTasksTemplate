@@ -1,0 +1,4 @@
+interface ITemplateSelectItemState {
+    checked?: boolean
+}
+

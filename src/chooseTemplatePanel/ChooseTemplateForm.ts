@@ -1,9 +1,9 @@
-import { IDialogOptions, IHostPageLayoutService } from 'azure-devops-extension-api'
+import { IHostPageLayoutService, IPanelOptions } from 'azure-devops-extension-api'
 import { IExtensionContext } from 'azure-devops-extension-sdk'
 import { SettingsData } from 'src/settings/SettingsData'
 import { Template } from 'src/settings/Template'
 
-export class ChooseTemplateDialog {
+export class ChooseTemplateForm {
     settings: SettingsData
     pageService: any
     context: IExtensionContext
@@ -19,7 +19,7 @@ export class ChooseTemplateDialog {
         return this.context.id + ".child-tasks-template-choose"
     }
     public async showDialog(): Promise<void> {
-        const options: IDialogOptions<string[]> = {
+        const options: IPanelOptions<string[]> = {
             title: "Choose templates to apply :",
             onClose: (result: string[] | undefined) => {
                 if (result !== undefined) {
@@ -28,7 +28,7 @@ export class ChooseTemplateDialog {
             }
         }
         console.info("Openning custom dialog : " + this.dialogContributionId())
-        this.pageService.openCustomDialog(this.dialogContributionId(), options)
+        this.pageService.openPanel(this.dialogContributionId(), options)
     }
     private setTemplateNames(names: string[]) {
         this.templateNames = names

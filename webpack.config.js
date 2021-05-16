@@ -1,12 +1,15 @@
-var path = require("path")
-var CleanWebpackPlugin = require("clean-webpack-plugin")
-var HtmlWebpackPlugin = require('html-webpack-plugin')
+var path = require("path");
+var CleanWebpackPlugin = require("clean-webpack-plugin");
+var HtmlWebpackPlugin = require('html-webpack-plugin');
+var distPath = path.resolve(__dirname, "dist");
+var rootPath = path.resolve(__dirname, ".");
 module.exports = {
     target: "web",
     devtool: "inline-source-map",
     devServer: {
+        contentBase: rootPath,
         https: true,
-        port: 3000
+        port: 6221
     },
     plugins: [
         new CleanWebpackPlugin.CleanWebpackPlugin(),
@@ -16,9 +19,9 @@ module.exports = {
             template: 'src/extension/extension.html'
         }),
         new HtmlWebpackPlugin({
-            chunks: ["choose"],
-            filename: "choose.html",
-            template: 'src/choose/choose.html'
+            chunks: ["chooseTemplatePanel"],
+            filename: "chooseTemplatePanel.html",
+            template: 'src/chooseTemplatePanel/chooseTemplatePanel.html'
         }),
         new HtmlWebpackPlugin({
             chunks: ["settings"],
@@ -27,14 +30,14 @@ module.exports = {
         })
     ],
     entry: {
-        choose: './src/choose/choose.tsx',
+        chooseTemplatePanel: './src/chooseTemplatePanel/chooseTemplatePanel.tsx',
         extension: './src/extension/extension.ts',
         settings: './src/settings/settings.ts'
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: distPath,
         filename: '[name].js',
-        devtoolModuleFilenameTemplate: "[resource-path]",
+        devtoolModuleFilenameTemplate: "../src/[resource-path]",
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js"],
