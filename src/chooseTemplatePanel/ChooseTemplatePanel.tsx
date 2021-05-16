@@ -12,23 +12,44 @@ import { IExtensionContext } from "azure-devops-extension-sdk"
 import { SettingsData } from "../settings/SettingsData"
 import { TemplateSelect } from "./TemplateSelect"
 
+export interface IChooseTemplatePanelState {
+    templates: [string, boolean][];
+}
+
+
 export class ChooseTemplatePanel extends Component<{}, IChooseTemplatePanelState> {
     private templateList?: string[]
 
     private onCheckedTemplatesChange(templates: string[]): void {
-        this.setState({ templateNames: templates })
+        let state: IChooseTemplatePanelState = { templates: [] };
+        this.state.templates.map(template => {
+            const name = template[0];
+            const selected:boolean = templates.findIndex(e => e == name) >= 0 ? true:false;
+            state.templates.push([name, selected])
+        });
+        this.setState(state)
+    }
+
+    private setTemplateList(templates: string[]): void {
+        let state: IChooseTemplatePanelState = { templates: [] };
+        templates.map(template => state.templates.push([template, false]))
+        this.setState(state)
+    }
+    private getTemplateList(): string[] {
+        let list : string[] = [];
+        this.state.templates.map( template => list.push(template[0]))
+        return list;
     }
 
     constructor(props: {}) {
         super(props)
-        this.state = { templateNames: [] }
+        this.state = { templates: [] }
     }
     public async componentDidMount() {
         SDK.init()
-
         await SDK.ready()
+        this.setTemplateList(await this.getTemplateNames());
         const config = SDK.getConfiguration()
-        this.templateList = await this.getTemplateNames()
         if (config.dialog) {
             // Give the host frame the size of our dialog content so that the dialog can be sized appropriately.
             // This is the case where we know our content size and can explicitly provide it to SDK.resize. If our
@@ -65,38 +86,30 @@ export class ChooseTemplatePanel extends Component<{}, IChooseTemplatePanelState
             project.id
         )
         this.templateList = await settings.getTemplateNames()
+        console.info("Templates : "+this.templateList)
         return this.templateList
     }
 
     public render(): JSX.Element {
-        if (this.templateList) {
             return (
-                <div className="sample-panel flex-column flex-grow">
-                    <TemplateSelect names={this.templateList} onCheckedNamesChange={this.onCheckedTemplatesChange} />
-                    <ButtonGroup className="sample-panel-button-bar">
-                        <Button
-                            primary={true}
-                            text="OK"
-                            onClick={() => this.close(false)}
-                        />
-                        <Button
-                            text="Cancel"
-                            onClick={() => this.close(true)}
-                        />
-                    </ButtonGroup>
-                </div>
-            )
-        }
-        else {
-            return (
-                <div className="sample-panel flex-column flex-grow">
-                    <h2>No templates found</h2>
-                </div>
-            )
-        }
+            <div className="sample-panel flex-column flex-grow">
+                    <TemplateSelect names={this.getTemplateList()} onCheckedNamesChange={this.onCheckedTemplatesChange} />
+                <ButtonGroup className="button-bar">
+                    <Button
+                        primary={true}
+                        text="Ok"
+                        onClick={() => this.close(false)}
+                    />
+                    <Button
+                        text="Cancel"
+                        onClick={() => this.close(true)}
+                    />
+                </ButtonGroup>
+            </div>
+        )
     }
     private close(cancel: boolean) {
-        const result = (cancel) ? [] : this.state.templateNames
+        const result = (cancel) ? [] : this.getTemplateList();
         const config = SDK.getConfiguration()
         if (config.dialog) {
             config.dialog.close(result)

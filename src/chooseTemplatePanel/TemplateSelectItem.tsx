@@ -1,7 +1,13 @@
 import React, { Component } from "react"
 import { Checkbox } from "azure-devops-ui/Checkbox"
-import { ITemplateSelectItemProps } from "./ITemplateSelectItemProps"
-
+export interface ITemplateSelectItemState {
+    checked?: boolean
+}
+export interface ITemplateSelectItemProps {
+    name: string
+    id: number
+    onChange?: (id: number, checked: boolean) => void
+}
 export class TemplateSelectItem extends Component<ITemplateSelectItemProps, ITemplateSelectItemState> {
     private onChange(_: React.MouseEvent<HTMLElement, globalThis.MouseEvent> | React.KeyboardEvent<HTMLElement>, checked: boolean): void {
         this.setState({ checked: checked })

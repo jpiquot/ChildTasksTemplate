@@ -1,6 +1,12 @@
 import React from "react"
-import { ITemplateSelectProps } from "./ITemplateSelectProps"
 import { TemplateSelectItem } from "./TemplateSelectItem"
+export interface ITemplateSelectState {
+    checkedList: boolean[]
+}
+export interface ITemplateSelectProps {
+    names: string[]
+    onCheckedNamesChange?: ((names: string[]) => void)
+}
 
 export class TemplateSelect extends React.Component<ITemplateSelectProps, ITemplateSelectState> {
 

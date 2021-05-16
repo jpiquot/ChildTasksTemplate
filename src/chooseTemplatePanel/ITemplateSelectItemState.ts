@@ -1,4 +1,0 @@
-interface ITemplateSelectItemState {
-    checked?: boolean
-}
-
