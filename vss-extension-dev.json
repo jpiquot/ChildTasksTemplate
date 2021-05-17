@@ -1,6 +1,6 @@
 {
 	"id": "ChildTasksTemplate-dev",
-	"version": "1.9.5",
+	"version": "1.9.6",
 	"baseUri": "https://localhost:6221",
 	"name": "Child Tasks Template (Preview)",
 	"public": false

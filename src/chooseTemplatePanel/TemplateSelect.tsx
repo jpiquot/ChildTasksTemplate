@@ -10,16 +10,21 @@ export interface ITemplateSelectProps {
 
 export class TemplateSelect extends React.Component<ITemplateSelectProps, ITemplateSelectState> {
 
-    private onchange(id: number, checked: boolean): void {
-        let list = this.state.checkedList
+    private onchange = (id: number, checked: boolean): void =>{
+        let list: boolean[] = [];
+        if (this.state) {
+            list = this.state.checkedList;
+        }
         list[id] = checked
         this.setState({ checkedList: list })
         if (this.props.onCheckedNamesChange) {
             let names: string[] = []
-            for (let i = 0; i < this.props.names.length; i++) {
-                if (this.state.checkedList[i] == true) {
-                    names.push(this.props.names[i])
-                };
+            if (this.props.names) {
+                for (let i = 0; i < this.props.names?.length; i++) {
+                    if (this.state.checkedList[i] == true) {
+                        names.push(this.props.names[i])
+                    };
+                }
             }
             this.props.onCheckedNamesChange(names)
         }
@@ -27,10 +32,13 @@ export class TemplateSelect extends React.Component<ITemplateSelectProps, ITempl
 
     constructor(props: ITemplateSelectProps) {
         super(props)
-        this.state = { checkedList: new Array(props.names.length) }
+        this.state = { checkedList: new Array(props.names?.length) }
     }
     public render(): JSX.Element {
-        let i = 0
-        return (<>{this.props.names.map(name => { <TemplateSelectItem id={i} name={name} onChange={this.onchange} /> })}</>)
+        return (
+            <div className="template-select flex-column flex-grow">
+                {this.props.names?.map((name, i) => <TemplateSelectItem key={i} id={i} name={name} onChange={this.onchange} />)}
+            </div>
+        );
     }
 }

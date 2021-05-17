@@ -7,6 +7,7 @@
 	"default": {},
 	"examples": [
 		{
+			"version": 2,
 			"templates": [
 				{
 					"name": "default",
@@ -156,9 +157,20 @@
 		}
 	],
 	"required": [
+		"version",
 		"templates"
 	],
 	"properties": {
+		"version": {
+			"$id": "#/properties/version",
+			"type": "integer",
+			"title": "The version schema",
+			"description": "An explanation about the purpose of this instance.",
+			"default": 0,
+			"examples": [
+				2
+			]
+		},
 		"templates": {
 			"$id": "#/properties/templates",
 			"type": "array",

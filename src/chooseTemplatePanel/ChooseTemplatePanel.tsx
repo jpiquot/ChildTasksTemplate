@@ -13,42 +13,42 @@ import { SettingsData } from "../settings/SettingsData"
 import { TemplateSelect } from "./TemplateSelect"
 
 export interface IChooseTemplatePanelState {
-    templates: [string, boolean][];
+    names: string[];
+    checks: boolean[];
 }
 
-
 export class ChooseTemplatePanel extends Component<{}, IChooseTemplatePanelState> {
-    private templateList?: string[]
 
-    private onCheckedTemplatesChange(templates: string[]): void {
-        let state: IChooseTemplatePanelState = { templates: [] };
-        this.state.templates.map(template => {
-            const name = template[0];
-            const selected:boolean = templates.findIndex(e => e == name) >= 0 ? true:false;
-            state.templates.push([name, selected])
+    private onCheckedTemplatesChange = (templates: string[]): void =>{
+        let state: IChooseTemplatePanelState = this.state;
+        this.state.names.map(name => {
+            state.checks.push( templates.findIndex(e => e == name) >= 0 ? true:false)
         });
         this.setState(state)
     }
 
     private setTemplateList(templates: string[]): void {
-        let state: IChooseTemplatePanelState = { templates: [] };
-        templates.map(template => state.templates.push([template, false]))
-        this.setState(state)
+        this.setState({ names: templates, checks:new Array(templates.length) })
     }
-    private getTemplateList(): string[] {
-        let list : string[] = [];
-        this.state.templates.map( template => list.push(template[0]))
-        return list;
+    private getSelectedTemplates(): string[] {
+        let templates = [];
+        for (let i = 0; i++; i < this.state.checks.length)
+        {
+            if (this.state.checks[i] == true)
+            {
+                templates.push(this.state.names[i]);
+            }
+        }
+        return templates;
     }
 
     constructor(props: {}) {
         super(props)
-        this.state = { templates: [] }
     }
     public async componentDidMount() {
-        SDK.init()
-        await SDK.ready()
+        let init = SDK.init()
         this.setTemplateList(await this.getTemplateNames());
+        await SDK.ready()
         const config = SDK.getConfiguration()
         if (config.dialog) {
             // Give the host frame the size of our dialog content so that the dialog can be sized appropriately.
@@ -59,12 +59,11 @@ export class ChooseTemplatePanel extends Component<{}, IChooseTemplatePanelState
             // we are visible in this callback.
             SDK.resize()
         }
+        await init;
+        console.info("get template names")
     }
     public static settings: SettingsData
     public async getTemplateNames(): Promise<string[]> {
-        if (this.templateList) {
-            return this.templateList
-        }
         const project = await (
             await SDK.getService<IProjectPageService>(
                 CommonServiceIds.ProjectPageService
@@ -85,15 +84,14 @@ export class ChooseTemplatePanel extends Component<{}, IChooseTemplatePanelState
             ),
             project.id
         )
-        this.templateList = await settings.getTemplateNames()
-        console.info("Templates : "+this.templateList)
-        return this.templateList
+        const templateList = await settings.getTemplateNames()
+        return templateList
     }
 
     public render(): JSX.Element {
             return (
-            <div className="sample-panel flex-column flex-grow">
-                    <TemplateSelect names={this.getTemplateList()} onCheckedNamesChange={this.onCheckedTemplatesChange} />
+            <div className="choose_template-panel flex-column flex-grow">
+                <TemplateSelect names={this.state?.names} onCheckedNamesChange={this.onCheckedTemplatesChange} />
                 <ButtonGroup className="button-bar">
                     <Button
                         primary={true}
@@ -109,7 +107,7 @@ export class ChooseTemplatePanel extends Component<{}, IChooseTemplatePanelState
         )
     }
     private close(cancel: boolean) {
-        const result = (cancel) ? [] : this.getTemplateList();
+        const result = (cancel) ? [] : this.getSelectedTemplates();
         const config = SDK.getConfiguration()
         if (config.dialog) {
             config.dialog.close(result)

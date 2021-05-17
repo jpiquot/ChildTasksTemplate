@@ -3,6 +3,7 @@ var CleanWebpackPlugin = require("clean-webpack-plugin");
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var distPath = path.resolve(__dirname, "dist");
 var rootPath = path.resolve(__dirname, ".");
+var CopyPlugin = require("copy-webpack-plugin");
 module.exports = {
     target: "web",
     devtool: "inline-source-map",
@@ -27,7 +28,13 @@ module.exports = {
             chunks: ["settings"],
             filename: "settings.html",
             template: 'src/settings/settings.html'
-        })
+        }),
+        new CopyPlugin({
+            patterns: [
+                { from: "static", to: "doc" },
+                { from: "src/settings/templateSetupSample.json", to:"doc"},
+            ],
+        }),
     ],
     entry: {
         chooseTemplatePanel: './src/chooseTemplatePanel/chooseTemplatePanel.tsx',

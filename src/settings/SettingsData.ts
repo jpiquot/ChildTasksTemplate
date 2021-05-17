@@ -1,4 +1,5 @@
 import { IExtensionDataManager } from "azure-devops-extension-api"
+import { SettingsUpgrade } from "./SettingsUpgrade";
 import { Template } from "./Template"
 import { TemplateSetup } from "./TemplateSetup"
 
@@ -29,7 +30,7 @@ export class SettingsData {
     }
 
     public async getChildTasksTemplateSetup(): Promise<TemplateSetup | undefined> {
-        return (await this.getValue(SettingsData.CHILD_TASKS_TEMPLATE)) as TemplateSetup
+        return SettingsUpgrade.upgradeToCurrent(await this.getValue(SettingsData.CHILD_TASKS_TEMPLATE))
     }
     public async getTemplateNames(): Promise<string[]> {
         let names: string[] = []
