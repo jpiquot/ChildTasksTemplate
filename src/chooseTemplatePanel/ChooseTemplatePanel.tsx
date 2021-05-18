@@ -16,7 +16,10 @@ export interface IChooseTemplatePanelState {
     names: string[];
     checks: boolean[];
 }
-
+export interface IChooseTemplatePanelResult {
+    names: string[];
+    context: any;
+}
 export class ChooseTemplatePanel extends Component<{}, IChooseTemplatePanelState> {
 
     private onCheckedTemplatesChange = (templates: string[]): void =>{
@@ -107,11 +110,12 @@ export class ChooseTemplatePanel extends Component<{}, IChooseTemplatePanelState
         )
     }
     private close = (cancel: boolean): void => {
-        console.info("Closing with cancel = " + cancel)
-        const result = (cancel) ? [] : this.getSelectedTemplates();
-        console.info("Closing with selected templates : " + result)
         const config = SDK.getConfiguration()
-        console.info("Config : " + JSON.stringify(result))
+        const result: IChooseTemplatePanelResult =
+        {
+            names: (cancel) ? [] : this.getSelectedTemplates(),
+            context: config.context
+        }
         if (config.dialog) {
             config.dialog.close(result)
         }

@@ -2,14 +2,14 @@ import {
     CommonServiceIds,
     IExtensionDataService,
     IHostPageLayoutService,
+    IPanelOptions,
     IProjectPageService,
 } from "azure-devops-extension-api"
 import * as SDK from "azure-devops-extension-sdk"
 import { IExtensionContext } from "azure-devops-extension-sdk"
 import { SettingsData } from "../settings/SettingsData"
 import { ChildTasksService } from "./ChildTasksService"
-import { ChooseTemplateForm } from "../chooseTemplatePanel/ChooseTemplateForm"
-
+import {IChooseTemplatePanelResult} from "../chooseTemplatePanel/ChooseTemplatePanel"
 class Program {
     static settings: SettingsData
     static context: IExtensionContext
@@ -47,13 +47,30 @@ class Program {
         SDK.register(SDK.getContributionId(), () => {
             return {
                 execute: async (context: any): Promise<void> => {
-                    const dialog = new ChooseTemplateForm(Program.settings, Program.context, Program.pageService)
-                    await dialog.showDialog()
-                    await new ChildTasksService(await dialog.getTemplates()).execute(context)
+                    await Program.showDialog(context)
                 },
             }
         })
         await SDK.notifyLoadSucceeded()
+    }
+    public static dialogContributionId(): string {
+        return Program.context.id + ".child-tasks-template-choose"
+    }
+    public static async showDialog(context:any): Promise<void> {
+        const options: IPanelOptions<IChooseTemplatePanelResult> = {
+            title: "Choose templates to apply :",
+            configuration: {
+                panel: this,
+                context: context,
+            },
+            onClose: Program.onClose
+        }
+        this.pageService.openPanel(this.dialogContributionId(), options)
+    }
+    private static onClose = async (result: IChooseTemplatePanelResult | undefined): Promise<void> => {
+        if (result && result.names && result.names.length > 0) {
+            await new ChildTasksService(await Program.settings.getTemplates(result.names)).execute(result.context)
+        }
     }
 }
 Program.run()

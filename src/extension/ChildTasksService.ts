@@ -17,7 +17,7 @@ import { Task } from "src/settings/Task"
 import { Field } from "src/settings/Field"
 import { Template } from "src/settings/Template"
 
-class ChildTasksService {
+export class ChildTasksService {
     private workClient?: WorkItemTrackingRestClient
     private clientForm?: IWorkItemFormService
     templates: Template[]
@@ -71,6 +71,7 @@ class ChildTasksService {
         if (context.workItemAvailable) {
             for (let t = 0; t < this.templates.length; t++) {
                 let template = this.templates[t]
+                console.info("creating tasks from template : "+template.name)
                 for (let i = 0; i < template.tasks.length; i++) {
                     const patch = new Array<JsonPatchOperation>()
                     patch.push(this.newParentRelation(parent))
@@ -90,6 +91,7 @@ class ChildTasksService {
                             )
                         )
                     }
+                    console.info("creating task : "+JSON.stringify(task))
 
                     const workItem = await client.createWorkItem(
                         patch as JsonPatchDocument,
@@ -140,5 +142,3 @@ class ChildTasksService {
         }
     }
 }
-
-export { ChildTasksService }

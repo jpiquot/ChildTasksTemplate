@@ -47,6 +47,7 @@ export class SettingsData {
     }
     public async getTemplates(names: string[]): Promise<Template[]> {
         let templates: Template[] = []
+        console.info("Getting templates :" + names)
         const setup = await this.getChildTasksTemplateSetup()
         if (!setup?.templates) {
             console.error("Templates have not been defined or the templates settings are incorrect.")
