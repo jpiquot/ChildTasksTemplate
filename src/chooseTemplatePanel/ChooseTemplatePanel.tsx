@@ -11,7 +11,7 @@ import * as SDK from "azure-devops-extension-sdk"
 import { IExtensionContext } from "azure-devops-extension-sdk"
 import { SettingsData } from "../settings/SettingsData"
 import { TemplateSelect } from "./TemplateSelect"
-
+import "./chooseTemplatePanel.scss"
 export interface IChooseTemplatePanelState {
     names: string[];
     checks: boolean[];
@@ -21,6 +21,7 @@ export class ChooseTemplatePanel extends Component<{}, IChooseTemplatePanelState
 
     private onCheckedTemplatesChange = (templates: string[]): void =>{
         let state: IChooseTemplatePanelState = this.state;
+        state.checks = [];
         this.state.names.map(name => {
             state.checks.push( templates.findIndex(e => e == name) >= 0 ? true:false)
         });
@@ -32,9 +33,9 @@ export class ChooseTemplatePanel extends Component<{}, IChooseTemplatePanelState
     }
     private getSelectedTemplates(): string[] {
         let templates = [];
-        for (let i = 0; i++; i < this.state.checks.length)
+        for (let i = 0; i < this.state.checks.length; i++)
         {
-            if (this.state.checks[i] == true)
+            if (this.state.checks[i] === true)
             {
                 templates.push(this.state.names[i]);
             }
@@ -60,7 +61,6 @@ export class ChooseTemplatePanel extends Component<{}, IChooseTemplatePanelState
             SDK.resize()
         }
         await init;
-        console.info("get template names")
     }
     public static settings: SettingsData
     public async getTemplateNames(): Promise<string[]> {
@@ -90,25 +90,28 @@ export class ChooseTemplatePanel extends Component<{}, IChooseTemplatePanelState
 
     public render(): JSX.Element {
             return (
-            <div className="choose_template-panel flex-column flex-grow">
+            <div className="choose-template-panel flex-column flex-grow">
                 <TemplateSelect names={this.state?.names} onCheckedNamesChange={this.onCheckedTemplatesChange} />
                 <ButtonGroup className="button-bar">
+                    <Button
+                        text="Cancel"
+                        onClick={() => this.close(true)}
+                    />
                     <Button
                         primary={true}
                         text="Ok"
                         onClick={() => this.close(false)}
                     />
-                    <Button
-                        text="Cancel"
-                        onClick={() => this.close(true)}
-                    />
                 </ButtonGroup>
             </div>
         )
     }
-    private close(cancel: boolean) {
+    private close = (cancel: boolean): void => {
+        console.info("Closing with cancel = " + cancel)
         const result = (cancel) ? [] : this.getSelectedTemplates();
+        console.info("Closing with selected templates : " + result)
         const config = SDK.getConfiguration()
+        console.info("Config : " + JSON.stringify(result))
         if (config.dialog) {
             config.dialog.close(result)
         }

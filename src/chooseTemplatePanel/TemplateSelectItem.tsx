@@ -21,7 +21,6 @@ export class TemplateSelectItem extends Component<ITemplateSelectItemProps, ITem
         this.state = {checked:false}
     }
     public render(): JSX.Element {
-        console.info("Render item : " + this.props.name)
-        return (<Checkbox key={this.props.id} onChange={this.onChange} checked={this.state.checked} label={this.props.name} />)
+        return (<Checkbox className="template-select-item" key={this.props.id} onChange={this.onChange} checked={this.state.checked} label={this.props.name} />)
     }
 }

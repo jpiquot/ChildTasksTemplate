@@ -32,7 +32,7 @@ module.exports = {
         new CopyPlugin({
             patterns: [
                 { from: "static", to: "doc" },
-                { from: "src/settings/templateSetupSample.json", to:"doc"},
+                { from: "src/settings/templateSetupSample.json", to: "doc" },
             ],
         }),
     ],
@@ -78,4 +78,4 @@ module.exports = {
             }
         ]
     }
-}
+};
