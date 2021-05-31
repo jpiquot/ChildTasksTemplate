@@ -37,7 +37,7 @@ module.exports = {
         }),
     ],
     entry: {
-        chooseTemplatePanel: './src/chooseTemplatePanel/chooseTemplatePanel.tsx',
+        chooseTemplatePanel: './src/chooseTemplatePanel/ChooseTemplatePanel.tsx',
         extension: './src/extension/extension.ts',
         settings: './src/settings/settings.ts'
     },
