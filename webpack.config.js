@@ -31,7 +31,7 @@ module.exports = {
         }),
         new CopyPlugin({
             patterns: [
-                { from: "static", to: "doc" },
+                { from: "doc", to: "doc" },
                 { from: "src/settings/templateSetupSample.json", to: "doc" },
             ],
         }),

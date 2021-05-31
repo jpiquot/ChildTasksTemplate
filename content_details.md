@@ -12,9 +12,9 @@ There are two things to know to be confortable using this extension.
 
 ### How to setup a template of tasks
 
-Go in the extension setup, which is per project. As you can see below, you have a "JSON" file to determine. The easiest way is to copy our sample [Json template](dist/doc/templateSetupSample.json) and to modify it. In the Azure DevOps Json editor, on the header bar, you can click on "Tree" or "Text". Go to the Text mode and you can copy and paste values, to add tasks to the template.
+Go in the extension setup, which is per project. As you can see below, you have a "JSON" file to determine. The easiest way is to copy our sample [Json template](doc/templateSetupSample.json) and to modify it. In the Azure DevOps Json editor, on the header bar, you can click on "Tree" or "Text". Go to the Text mode and you can copy and paste values, to add tasks to the template.
 
-![Settings screen](dist/doc/project_setup.png)
+![Settings screen](doc/project_setup.png)
 
 You can setup parent fields in the sub tasks. By this way, when the system will generate the sub-tasks, you will be able to use "parent task" variables, like the original title, ID, url ... In the value field, as in the sample, when you specify a field, it will be the parent's value.
 
@@ -22,4 +22,4 @@ You can setup parent fields in the sub tasks. By this way, when the system will 
 
 When you are on a work item, just go in the options and click on add tasks as below. The sub tasks will be automatically generated.
 
-![Settings screen](dist/doc/Add_tasks.png)
+![Settings screen](doc/Add_tasks.png)
