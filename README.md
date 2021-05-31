@@ -4,6 +4,10 @@
 
 This project generates an [Azure DevOps extension](https://docs.microsoft.com/en-us/azure/devops/extend/overview?view=vsts).
 
+## Version 2.0 schema change
+
+The schema has been changed to enable multiple template support. See [Schema sample](src/settings/templateSetupSample.json)
+
 ## Dependencies
 
 The project depends on a few Azure DevOps packages:
@@ -24,6 +28,6 @@ Just run:
 
 This produces a .vsix file which can be uploaded to the [Visual Studio Marketplace](https://marketplace.visualstudio.com/azuredevops)
 
-## Documentation 
+## Documentation
 
 [Details](content_details.md)
