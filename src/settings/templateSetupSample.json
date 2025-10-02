@@ -27,7 +27,8 @@
                             "name": "Microsoft.VSTS.Common.Activity",
                             "value": "Design"
                         }
-                    ]
+                    ],
+                    "type": "Task"
                 },
                 {
                     "name": "Dev Task",
@@ -48,7 +49,8 @@
                             "name": "Microsoft.VSTS.Common.Activity",
                             "value": "Development"
                         }
-                    ]
+                    ],
+                    "type": "Task"
                 },
                 {
                     "name": "Test Task",
@@ -69,7 +71,8 @@
                             "name": "Microsoft.VSTS.Common.Activity",
                             "value": "Testing"
                         }
-                    ]
+                    ],
+                    "type": "Task"
                 }
             ]
         },
@@ -99,7 +102,8 @@
                             "name": "Microsoft.VSTS.Common.Activity",
                             "value": "Design"
                         }
-                    ]
+                    ],
+                    "type": "Task"
                 },
                 {
                     "name": "Dev Task",
@@ -120,7 +124,8 @@
                             "name": "Microsoft.VSTS.Common.Activity",
                             "value": "Development"
                         }
-                    ]
+                    ],
+                    "type": "Task"
                 },
                 {
                     "name": "Test Task",
@@ -141,9 +146,158 @@
                             "name": "Microsoft.VSTS.Common.Activity",
                             "value": "Testing"
                         }
-                    ]
+                    ],
+                    "type": "Task"
                 }
             ]
+        },
+        {
+      "name": "Feature Group example",
+      "tasks": [
+        {
+          "name": "Feature A",
+          "fields": [
+            {
+              "name": "System.Title",
+              "value": "Feature A"
+            },
+            {
+              "name": "System.IterationPath",
+              "value": "{System.IterationPath}"
+            },
+            {
+              "name": "System.AreaPath",
+              "value": "{System.AreaPath}"
+            }
+          ],
+          "type": "Feature"
+        },
+        {
+          "name": "Feature B",
+          "fields": [
+            {
+              "name": "System.Title",
+              "value": "Enhancement B"
+            },
+            {
+              "name": "System.IterationPath",
+              "value": "{System.IterationPath}"
+            },
+            {
+              "name": "System.AreaPath",
+              "value": "{System.AreaPath}"
+            }
+          ],
+          "type": "Feature"
+        },
+        {
+          "name": "Feature C",
+          "fields": [
+            {
+              "name": "System.Title",
+              "value": "Enhancement C"
+            },
+            {
+              "name": "System.IterationPath",
+              "value": "{System.IterationPath}"
+            },
+            {
+              "name": "System.AreaPath",
+              "value": "{System.AreaPath}"
+            },
+            {
+              "name": "Microsoft.VSTS.Common.Priority",
+              "value": "{Microsoft.VSTS.Common.Priority}"
+            }
+          ],
+          "type": "Feature"
         }
-    ]
+      ]
+    },
+    {
+      "name": "PBI Group example",
+      "tasks": [
+        {
+          "name": "Enhancements Group",
+          "fields": [
+            {
+              "name": "System.Title",
+              "value": "Enhancement A"
+            },
+            {
+              "name": "System.IterationPath",
+              "value": "{System.IterationPath}"
+            },
+            {
+              "name": "System.AreaPath",
+              "value": "{System.AreaPath}"
+            }
+          ],
+          "type": "Product Backlog Item"
+        },
+        {
+          "name": "Enhancement B",
+          "fields": [
+            {
+              "name": "System.Title",
+              "value": "Enhancement B"
+            },
+            {
+              "name": "System.IterationPath",
+              "value": "{System.IterationPath}"
+            },
+            {
+              "name": "System.AreaPath",
+              "value": "{System.AreaPath}"
+            }
+          ],
+          "type": "Product Backlog Item"
+        },
+        {
+          "name": "Enhancement C",
+          "fields": [
+            {
+              "name": "System.Title",
+              "value": "Enhancement C"
+            },
+            {
+              "name": "System.IterationPath",
+              "value": "{System.IterationPath}"
+            },
+            {
+              "name": "System.AreaPath",
+              "value": "{System.AreaPath}"
+            },
+            {
+              "name": "Microsoft.VSTS.Common.Priority",
+              "value": "{Microsoft.VSTS.Common.Priority}"
+            }
+          ],
+          "type": "Product Backlog Item"
+        },
+        {
+          "name": "Enhancement D",
+          "fields": [
+            {
+              "name": "System.Title",
+              "value": "Enhancement D"
+            },
+            {
+              "name": "System.IterationPath",
+              "value": "{System.IterationPath}"
+            },
+            {
+              "name": "System.AreaPath",
+              "value": "{System.AreaPath}"
+            },
+            {
+              "name": "Microsoft.VSTS.Common.Priority",
+              "value": "{Microsoft.VSTS.Common.Priority}"
+            }
+          ],
+          "type": "Product Backlog Item"
+        }
+      ]
+    }
+  ]
 }

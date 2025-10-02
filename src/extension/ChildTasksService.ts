@@ -93,10 +93,11 @@ export class ChildTasksService {
                     }
                     console.info("creating task : "+JSON.stringify(task))
 
+                    const workItemType = task.type || "Task"; // default to Task
                     const workItem = await client.createWorkItem(
                         patch as JsonPatchDocument,
                         context.currentProjectGuid,
-                        "Task"
+                        workItemType
                     )
                     console.info("Created task " + workItem.id)
                 }

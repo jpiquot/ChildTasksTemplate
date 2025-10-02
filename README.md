@@ -4,9 +4,9 @@
 
 This project generates an [Azure DevOps extension](https://docs.microsoft.com/en-us/azure/devops/extend/overview?view=vsts).
 
-## Version 2.0 schema change
+## Version 3.0 schema change
 
-The schema has been changed to enable multiple template support. See [Schema sample](src/settings/templateSetupSample.json)
+The schema has been changed to enable multiple All work item types. See [Schema sample](src/settings/templateSetupSample.json)
 
 ## Dependencies
 
